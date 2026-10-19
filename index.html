@@ -72,7 +72,12 @@ section{padding:88px 0 0}
 .ruler{display:flex;justify-content:space-between;font-size:11px;color:var(--fg3);margin-top:6px}
 
 /* Player */
-.player{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;margin-top:28px}
+.pwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:12px;margin-top:28px;align-items:stretch}
+.pfoto{margin:0;position:relative;border-radius:22px;overflow:hidden;background:var(--bg2);min-height:600px}
+.pfoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.pfoto figcaption{position:absolute;left:16px;bottom:16px;background:rgba(0,0,0,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px}
+.player{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:12px}
+.player .name{grid-column:span 2}
 .tile{background:var(--bg2);border-radius:18px;padding:22px 22px}
 .tile .k{font-size:13px;color:var(--fg2);font-weight:600}
 .tile .v{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.03em;margin-top:6px;line-height:1.05}
@@ -191,7 +196,7 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
   section{padding-top:64px}.grey{padding:64px 0;margin-top:64px}
   .clubfacts{grid-template-columns:1fr 1fr}.cf{padding:18px 12px 18px 0!important;border-left:none!important;border-bottom:1px solid var(--line)}.cf:nth-child(even){padding-left:14px!important;border-left:1px solid var(--line)!important}.cf:last-child{grid-column:span 2;border-bottom:none}
   .ribbon{height:56px;gap:3px}.hole{padding:6px 4px;border-radius:9px}.hole .hl{display:none}.hole .hn{font-size:11px}
-  .player{grid-template-columns:1fr 1fr}.player .name{grid-column:span 2}
+  .pwrap{grid-template-columns:1fr}.pfoto{min-height:0;aspect-ratio:4/5}
   .stats{grid-template-columns:1fr 1fr}.stats .tile:first-child{grid-column:span 2}
   .rounds{grid-template-columns:1fr 1fr}
   .split,.method{grid-template-columns:1fr}
@@ -234,7 +239,10 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 
   <section id="spieler" class="reveal">
     <h2 class="sh">Der Spieler.</h2>
-    <div class="player" id="player"></div>
+    <div class="pwrap">
+      <figure class="pfoto"><img src="spieler.jpg" alt="Dr. Maurizio Lindemann mit Putter auf dem Grün" loading="lazy"><figcaption>Spielbereit. Mehr oder weniger.</figcaption></figure>
+      <div class="player" id="player"></div>
+    </div>
   </section>
 
   <section id="stand" class="reveal">
