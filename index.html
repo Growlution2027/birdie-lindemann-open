@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Djerba Turnier 2026</title>
+<meta name="description" content="Sechs Runden, 108 Löcher. Das Djerba Turnier 2026 von Dr. Maurizio Lindemann am Djerba Golf Club.">
+<meta property="og:title" content="Djerba Turnier 2026">
+<meta property="og:description" content="6 Runden. 108 Löcher. Jeder Putt zählt.">
+<meta property="og:image" content="hero.jpg">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
+<style>
+:root{
+  --bg:#ffffff;--bg2:#f5f5f7;--card:#ffffff;--fg:#1d1d1f;--fg2:#6e6e73;--fg3:#86868b;--line:#d2d2d7;
+  --accent:#0071e3;--green:#1d9a50;--orange:#d9730d;--red:#d70015;
+  --p3:#a1c7f0;--p4:#4f8fdc;--p5:#1d4e9a;--seg:#e8e8ed;--segon:#fff;--r:22px;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#000;--bg2:#161617;--card:#1d1d1f;--fg:#f5f5f7;--fg2:#a1a1a6;--fg3:#86868b;--line:#424245;--accent:#2997ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--p3:#3b5f8a;--p4:#3d7fd0;--p5:#8fc0f5;--seg:#2c2c2e;--segon:#636366}
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg)}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;line-height:1.4}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1024px;margin:0 auto;padding:0 20px}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:10;backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+nav .wrap{display:flex;align-items:center;gap:22px;height:48px;overflow-x:auto;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav b{font-size:17px;font-weight:600;white-space:nowrap;margin-right:auto}
+nav a{color:var(--fg2);text-decoration:none;font-size:13px;white-space:nowrap}
+nav a:hover{color:var(--fg)}
+
+/* Hero */
+.hero{position:relative;height:min(78vh,720px);min-height:460px;background:#3f5f9a url(hero.jpg) center 72%/cover no-repeat;display:flex;align-items:flex-start;justify-content:center;text-align:center;color:#fff;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,25,60,.28) 0%,rgba(10,25,60,.06) 45%,rgba(0,0,0,0) 65%)}
+.hero-in{position:relative;z-index:1;padding-top:clamp(56px,11vh,120px)}
+.eyebrow{font-size:clamp(14px,1.8vw,19px);font-weight:600;opacity:.95}
+.hero h1{margin:8px 0 0;font-size:clamp(44px,9vw,96px);line-height:1.02;font-weight:700;letter-spacing:-.035em;text-shadow:0 2px 24px rgba(0,0,0,.15)}
+.hero p{margin:14px 0 0;font-size:clamp(18px,2.6vw,28px);font-weight:500;opacity:.96}
+
+/* Sections */
+section{padding:88px 0 0}
+.sh{font-size:clamp(34px,5.4vw,56px);font-weight:700;letter-spacing:-.03em;margin:0;line-height:1.05}
+.ss{color:var(--fg2);font-size:clamp(17px,2vw,21px);margin:10px 0 0;max-width:760px}
+.grey{background:var(--bg2);padding:88px 0;margin-top:88px}
+.grey section{padding-top:0}
+.grey .tile,.grey .rd,.grey .panel,.grey .card,.grey .cc{background:var(--card)}
+
+/* Player */
+.player{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;margin-top:28px}
+.tile{background:var(--bg2);border-radius:18px;padding:22px 22px}
+.tile .k{font-size:13px;color:var(--fg2);font-weight:600}
+.tile .v{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.03em;margin-top:6px;line-height:1.05}
+.tile .u{font-size:13px;color:var(--fg3);margin-top:8px}
+.tile.name .v{font-size:clamp(24px,3.2vw,32px)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:28px}
+
+/* Rounds */
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.rd{border-radius:18px;padding:20px;background:var(--bg2);position:relative;min-height:190px}
+.rd.done{background:var(--fg)!important;color:var(--bg)}
+.rd .n{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;opacity:.65}
+.rd .d{font-size:18px;font-weight:600;margin-top:6px}
+.rd .c{font-size:13px;opacity:.7;margin-top:2px}
+.rd .s{display:flex;align-items:baseline;gap:8px;margin-top:16px}
+.rd .s b{font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.rd .s span{font-size:15px;font-weight:600;opacity:.7}
+.rd .m{display:flex;gap:14px;font-size:13px;opacity:.75;margin-top:10px;flex-wrap:wrap}
+.rd .m b{font-weight:700;opacity:1}
+.rd.next{outline:2px solid var(--accent);outline-offset:-2px}
+.rd .tag{position:absolute;top:18px;right:18px;font-size:11px;font-weight:700;color:var(--accent)}
+.rd .open{font-size:15px;color:var(--fg3);margin-top:18px}
+
+/* Panels */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+.panel{background:var(--bg2);border-radius:var(--r);padding:24px 22px}
+.panel h4{margin:0;font-size:19px;font-weight:600}
+.panel .sub{color:var(--fg2);font-size:14px;margin-top:2px}
+.dist{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+.dist .row{display:grid;grid-template-columns:136px 1fr 28px;gap:12px;align-items:center;font-size:15px}
+.dist .bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.dist .bar i{display:block;height:100%;border-radius:5px;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.dist .row b{text-align:right;font-weight:600}
+
+/* Scorecard */
+.card{background:var(--bg2);border-radius:var(--r);padding:24px 18px;margin-top:20px}
+.card h3{margin:0 4px;font-size:24px;font-weight:700;letter-spacing:-.02em}
+.card .meta{margin:4px 4px 0;color:var(--fg2);font-size:15px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 4px 0}
+.chip{background:var(--bg);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.grey .chip{background:var(--bg2)}
+.chip span{color:var(--fg2);font-weight:500;margin-right:4px}
+.nine{margin-top:20px;overflow-x:auto}
+.nine table{border-collapse:collapse;width:100%;table-layout:fixed}
+.nine caption{text-align:left;font-size:13px;font-weight:600;color:var(--fg2);padding:0 4px 8px}
+.nine th,.nine td{text-align:center;padding:8px 2px;font-size:15px}
+.nine th{font-weight:500;color:var(--fg3);font-size:12px;text-align:left;padding-left:4px;width:72px}
+.nine tr+tr td,.nine tr+tr th{border-top:1px solid var(--line)}
+.nine .tot{font-weight:700;width:44px}
+.nine tr.pts td{color:var(--accent);font-weight:600}
+.sc{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;font-weight:600}
+.sc.birdie{border:1.5px solid var(--green);border-radius:50%;color:var(--green)}
+.sc.bogey{border:1.5px solid var(--fg3);border-radius:6px}
+.sc.double{border:1.5px solid var(--orange);border-radius:6px;box-shadow:0 0 0 2px var(--bg2),0 0 0 3.5px var(--orange);color:var(--orange)}
+.grey .sc.double{box-shadow:0 0 0 2px var(--card),0 0 0 3.5px var(--orange)}
+.pt1{color:var(--green);font-weight:700}
+.pt3{color:var(--red);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin:18px 4px 0;font-size:12px;color:var(--fg2);align-items:center}
+.legend .sc{width:20px;height:20px;font-size:11px;margin-right:4px}
+.legend span{display:inline-flex;align-items:center}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:6px}
+
+/* Courses */
+.seg{display:inline-flex;background:var(--seg);border-radius:10px;padding:3px;gap:2px;margin-top:24px;flex-wrap:wrap}
+.seg button{all:unset;cursor:pointer;padding:7px 14px;border-radius:8px;font-size:14px;font-weight:600;color:var(--fg2);display:inline-flex;align-items:center;gap:6px}
+.seg button[aria-pressed=true]{background:var(--segon);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.dot{width:9px;height:9px;border-radius:50%;border:1px solid rgba(0,0,0,.2)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.cc{background:var(--bg2);border-radius:18px;padding:22px 20px;cursor:pointer;transition:transform .25s}
+.cc:hover{transform:scale(1.015)}
+.cc[aria-current=true]{outline:2px solid var(--accent);outline-offset:-2px}
+.cc .k{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--fg2)}
+.cc .t{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-top:6px}
+.cc .big{font-size:44px;font-weight:700;letter-spacing:-.03em;margin-top:14px;line-height:1}
+.cc .meta{font-size:14px;color:var(--fg2);margin-top:8px}
+.mix{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-top:14px;gap:2px}
+.mix i{display:block;height:100%}
+.mixl{display:flex;gap:12px;font-size:12px;color:var(--fg3);margin-top:8px}
+.detail h3{margin:0;font-size:26px;font-weight:700;letter-spacing:-.02em}
+.detail .char{color:var(--fg2);font-size:16px;margin:6px 0 0;max-width:720px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.f{background:var(--bg);border-radius:14px;padding:14px}
+.f .k{font-size:12px;color:var(--fg2);font-weight:600}
+.f .v{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-top:4px}
+.f .u{font-size:12px;color:var(--fg3);margin-top:2px}
+.chart{margin-top:22px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.hp{width:100%;table-layout:fixed;border-collapse:collapse;margin-top:18px;font-size:14px}
+.hp th,.hp td{padding:8px 2px;text-align:center;border-top:1px solid var(--line)}
+.hp th{text-align:left;font-weight:500;color:var(--fg2);font-size:12px;width:150px;padding-left:2px;line-height:1.3}
+.hp tr:first-child th,.hp tr:first-child td{border-top:none;color:var(--fg3);font-size:12px}
+.combo{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
+.combo th,.combo td{padding:13px 8px;text-align:right;border-top:1px solid var(--line)}
+.combo th{font-size:12px;color:var(--fg2);font-weight:600;border-top:none}
+.combo td:first-child,.combo th:first-child{text-align:left}
+.combo td:first-child b{font-weight:600}
+.combo .tag{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);margin-left:8px}
+.note{font-size:13px;color:var(--fg3);margin-top:14px;max-width:760px}
+
+/* Method */
+.method{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+.method .panel p{margin:10px 0 0;font-size:15px;color:var(--fg2)}
+.method code{font-family:inherit;font-weight:600;color:var(--fg)}
+
+footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);color:var(--fg3);font-size:12px;line-height:1.7}
+
+/* Motion */
+@media (prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+}
+
+@media (max-width:760px){
+  section{padding-top:64px}.grey{padding:64px 0;margin-top:64px}
+  .player{grid-template-columns:1fr 1fr}.player .name{grid-column:span 2}
+  .stats{grid-template-columns:1fr 1fr}.stats .tile:first-child{grid-column:span 2}
+  .rounds{grid-template-columns:1fr 1fr}
+  .split,.method{grid-template-columns:1fr}
+  .grid3{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr 1fr}
+  .nine th{width:50px;font-size:11px;padding-left:2px}.nine td{font-size:13px;padding:7px 0}.nine .tot{width:32px}
+  .sc{width:24px;height:24px}.card{padding:20px 10px}
+  .hp th{width:82px;font-size:11px}.hp td{font-size:12px}
+  .combo{font-size:13px}.combo th,.combo td{padding:11px 4px}
+  .dist .row{grid-template-columns:110px 1fr 24px;font-size:14px}
+  .hero{min-height:420px;height:68vh}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>Djerba Turnier</b><a href="#stand">Stand</a><a href="#runden">Runden</a><a href="#scorecards">Scorecards</a><a href="#plaetze">Plätze</a></div></nav>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="eyebrow">Djerba Golf Club · 19.–29. Oktober 2026</div>
+    <h1>Djerba Turnier.</h1>
+    <p>6 Runden. 108 Löcher. Jeder Putt zählt.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="spieler" class="reveal">
+    <h2 class="sh">Der Spieler.</h2>
+    <div class="player" id="player"></div>
+  </section>
+
+  <section id="stand" class="reveal">
+    <h2 class="sh">Turnierstand.</h2>
+    <p class="ss" id="stand-s"></p>
+    <div class="stats" id="stats"></div>
+  </section>
+</main>
+
+<div class="grey">
+  <div class="wrap">
+    <section id="runden" class="reveal">
+      <h2 class="sh">Die Runden.</h2>
+      <p class="ss">Gespielt wird alle zwei Tage. Brutto, Stableford und gespieltes Handicap je Runde.</p>
+      <div class="rounds" id="rounds"></div>
+    </section>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="reveal">
+    <h2 class="sh">Auf dem Platz.</h2>
+    <p class="ss">Ergebnisse und Putts über alle gespielten Löcher.</p>
+    <div class="split" id="split"></div>
+  </section>
+
+  <section id="scorecards" class="reveal">
+    <h2 class="sh">Scorecards.</h2>
+    <p class="ss">Loch für Loch. Mit Putts und Stableford-Punkten.</p>
+    <div id="cards"></div>
+  </section>
+</main>
+
+<div class="grey">
+  <div class="wrap">
+    <section id="plaetze" class="reveal">
+      <h2 class="sh">Die Plätze.</h2>
+      <p class="ss">27 Loch in drei Schleifen à 9 Loch, frei kombinierbar zu 18. Links-Charakter zwischen Palmen, Dünen und Meer. Design Martin Hawtree, eröffnet 1995.</p>
+      <div class="seg" id="tees" role="group" aria-label="Abschlag"></div>
+      <div class="grid3" id="overview"></div>
+      <div class="card detail" id="detail"></div>
+      <h3 style="font-size:26px;letter-spacing:-.02em;margin:56px 0 0">Die Kombinationen.</h3>
+      <div style="overflow-x:auto"><table class="combo num" id="combos"></table></div>
+      <p class="note">Lochvorgaben gelten je Kombination. Palmiers und Les Acacias behalten ihre Werte immer, auf La Mer verschieben sie sich, je nachdem ob die Schleife vorne oder hinten gespielt wird.</p>
+    </section>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="reveal">
+    <h2 class="sh">So wird gerechnet.</h2>
+    <div class="method">
+      <div class="panel"><h4>Spielvorgabe</h4><p><code>Handicap-Index × Slope ÷ 113 + (Course Rating − Par)</code>, gerundet. Werte aus der Spielvorgabentabelle des Clubs für den gespielten Abschlag.</p><p id="m-ch"></p></div>
+      <div class="panel"><h4>Gespieltes Handicap</h4><p>Score-Differenz nach WHS: <code>(bereinigtes Brutto − Course Rating) × 113 ÷ Slope</code>. Pro Loch zählt höchstens Netto-Doppelbogey. Ohne Witterungskorrektur (PCC).</p><p id="m-sd"></p></div>
+    </div>
+  </section>
+  <footer id="foot"></footer>
+</main>
+
+<script>
+/* ===== Daten ===== */
+const PLAYER={name:'Dr. Maurizio Lindemann',club:'Golfclub Essen-Heidhausen',hcpi:19.3,hcpiDate:'19.10.2026',tee:'Gelb'};
+const COURSES={
+ P:{name:'Les Palmiers',short:'Palmiers',par:[4,3,5,4,4,5,4,3,5],
+  W:[345,145,484,329,275,521,273,170,503],G:[304,139,458,303,249,501,260,138,475],B:[280,133,420,274,238,462,250,118,455],R:[253,119,397,220,206,439,232,99,435],
+  char:'Die Schleife mit dem höchsten Par: drei Par 5, das längste misst 521 m von Weiß. Gefragt sind lange und platzierte Schläge, dazu Wasserhindernisse im Spiel.'},
+ M:{name:'La Mer',short:'La Mer',par:[4,4,4,5,4,3,5,4,3],
+  W:[335,409,384,459,390,138,457,385,153],G:[324,379,357,443,368,116,439,350,120],B:[309,342,328,407,325,93,416,316,99],R:[281,309,292,373,298,83,368,292,86],
+  char:'Die längsten Spielbahnen der Anlage. Einige Fairways und Grüns liegen direkt am Meer, hier entscheidet vor allem der Wind.'},
+ A:{name:'Les Acacias',short:'Les Acacias',par:[4,4,5,3,4,3,4,4,4],
+  W:[358,261,503,145,324,166,296,331,340],G:[329,239,473,119,296,142,262,308,314],B:[272,199,439,83,273,118,228,236,255],R:[266,192,432,79,267,112,223,232,246],
+  char:'Die kürzeste Schleife, Par 35: sechs Par 4, zwei Par 3 und ein Par 5.'}
+};
+/* Kombinationen: Reihenfolge und Lochvorgaben laut Scorecards; CR/Slope Gelb laut Spielvorgabentabelle (null = noch nicht vorliegend) */
+const COMBOS={
+ PM:{a:'P',b:'M',name:'Palmiers / La Mer',hp:[10,18,4,14,12,2,6,16,8,13,1,5,3,7,15,11,9,17],cr:73,slope:130},
+ MA:{a:'M',b:'A',name:'La Mer / Les Acacias',hp:[14,2,6,4,8,16,12,10,18,1,17,3,13,15,7,9,11,5],cr:null,slope:null},
+ PA:{a:'P',b:'A',name:'Palmiers / Les Acacias',hp:[10,18,4,14,12,2,6,16,8,1,17,3,13,15,7,9,11,5],cr:null,slope:null}
+};
+const ROUNDS=[
+ {no:1,date:'2026-10-19',combo:'PM',s:[5,4,6,4,4,7,4,3,5,4,6,6,6,6,4,6,6,5],p:[2,2,2,2,2,2,2,2,3,1,2,2,1,3,2,2,2,1]},
+ {no:2,date:'2026-10-21',combo:'MA'},
+ {no:3,date:'2026-10-23',combo:null},
+ {no:4,date:'2026-10-25',combo:null},
+ {no:5,date:'2026-10-27',combo:null},
+ {no:6,date:'2026-10-29',combo:null}
+];
+const UPDATED='19.10.2026';
+
+/* ===== Rechnen ===== */
+const sum=a=>a.reduce((s,v)=>s+v,0);
+const WD=['So','Mo','Di','Mi','Do','Fr','Sa'];
+const fmtD=s=>{const d=new Date(s+'T12:00:00');return WD[d.getDay()]+', '+d.getDate()+'. Okt.';};
+const de=(n,k)=>n.toFixed(k).replace('.',',');
+const sgn=n=>n>0?'+'+n:(n===0?'E':String(n));
+const f=n=>n.toLocaleString('de-DE');
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+
+function comboPar(k){const c=COMBOS[k];return COURSES[c.a].par.concat(COURSES[c.b].par);}
+function playingHcp(k){const c=COMBOS[k];if(c.cr==null)return null;return Math.round(PLAYER.hcpi*c.slope/113+(c.cr-sum(comboPar(k))));}
+function strokes(ch,hp){return Math.floor(ch/18)+(hp<=ch%18?1:0);}
+function evalRound(r){
+  if(!r.s) return null;
+  const c=COMBOS[r.combo],par=comboPar(r.combo),ch=playingHcp(r.combo);
+  const res={par:sum(par),score:sum(r.s),putts:sum(r.p),ch,
+    holes:r.s.map((x,i)=>({loop:COURSES[i<9?c.a:c.b].short,hole:i%9+1,par:par[i],hp:c.hp[i],s:x,p:r.p[i]}))};
+  if(ch!=null){
+    res.holes.forEach(h=>{const st=strokes(ch,h.hp);h.pts=Math.max(0,2+h.par+st-h.s);h.adj=Math.min(h.s,h.par+2+st);});
+    res.stb=sum(res.holes.map(h=>h.pts));
+    res.ags=sum(res.holes.map(h=>h.adj));
+    res.sd=Math.round((res.ags-c.cr)*113/c.slope*10)/10;
+  }
+  res.p1=res.holes.filter(h=>h.p<=1).length;res.p3=res.holes.filter(h=>h.p>=3).length;
+  return res;
+}
+ROUNDS.forEach(r=>r.res=evalRound(r));
+const played=ROUNDS.filter(r=>r.res);
+const next=ROUNDS.find(r=>!r.res);
+const n=played.length;
+const allH=played.flatMap(r=>r.res.holes);
+const avg=(arr)=>arr.length?sum(arr)/arr.length:null;
+
+/* ===== Spieler ===== */
+(()=>{const p=document.getElementById('player');
+ [['name','Spieler',PLAYER.name,PLAYER.club+' · DGV'],['','Handicap-Index',de(PLAYER.hcpi,1),'DGV, Stand '+PLAYER.hcpiDate],['','Abschlag',PLAYER.tee,'Herren']]
+ .forEach(([cls,k,v,u])=>{const d=el('div','tile '+cls);d.append(el('div','k',k),el('div','v num',v),el('div','u',u));p.append(d);});})();
+
+/* ===== Stand ===== */
+(()=>{
+ document.getElementById('stand-s').textContent=n?`Nach ${n} von ${ROUNDS.length} Runden.`+(next?` Weiter geht es ${fmtD(next.date)}${next.combo?' auf '+COMBOS[next.combo].name:''}.`:' Turnier beendet.'):'Das Turnier startet am 19. Oktober.';
+ const stb=played.filter(r=>r.res.stb!=null),sds=played.filter(r=>r.res.sd!=null);
+ const bestSd=sds.length?sds.reduce((a,r)=>r.res.sd<a.res.sd?r:a):null;
+ const tiles=[
+  ['Stableford Ø',stb.length?de(avg(stb.map(r=>r.res.stb)),n>1?1:0):'–',stb.length?'Punkte je Runde':''],
+  ['Brutto Ø',n?de(avg(played.map(r=>r.res.score)),n>1?1:0):'–',n?sgn(Math.round(avg(played.map(r=>r.res.score-r.res.par))*10)/10).replace('.',',')+' zu Par':''],
+  ['Bestes gespieltes HCP',bestSd?de(bestSd.res.sd,1):'–',bestSd?`Runde ${bestSd.no} · Index ${de(PLAYER.hcpi,1)}`:''],
+  ['Putts Ø',n?de(avg(played.map(r=>r.res.putts)),n>1?1:0):'–',allH.length?de(sum(allH.map(h=>h.p))/allH.length,2)+' je Loch':''],
+  ['3-Putts',n?String(sum(played.map(r=>r.res.p3))):'–',n?sum(played.map(r=>r.res.p1))+' Einputts':''],
+ ];
+ const st=document.getElementById('stats');
+ tiles.forEach(([k,v,u])=>{const d=el('div','tile');d.append(el('div','k',k),el('div','v num',v),el('div','u',u));st.append(d);});
+})();
+
+/* ===== Runden ===== */
+(()=>{const rw=document.getElementById('rounds');
+ ROUNDS.forEach(r=>{const R=r.res,isNext=next&&next.no===r.no;
+  const d=el('div','rd'+(R?' done':'')+(isNext?' next':''));
+  d.append(el('div','n','Runde '+r.no),el('div','d',fmtD(r.date)),el('div','c',r.combo?COMBOS[r.combo].name+' · Par '+sum(comboPar(r.combo)):'Kombination offen'));
+  if(R){const s=el('div','s num');s.append(el('b','',R.stb!=null?String(R.stb):String(R.score)),el('span','',R.stb!=null?'Punkte':'Brutto'));d.append(s);
+   const m=el('div','m num');
+   [['Brutto',R.score+' ('+sgn(R.score-R.par)+')'],['Putts',String(R.putts)],['Vorgabe',R.ch!=null?String(R.ch):'–'],['gesp. HCP',R.sd!=null?de(R.sd,1):'–']]
+    .forEach(([k,v])=>{const x=el('span','',k+' ');x.append(el('b','',v));m.append(x);});
+   d.append(m);}
+  else d.append(el('div','open',isNext?'Als Nächstes':'Ausstehend'));
+  if(isNext)d.append(el('div','tag','NÄCHSTE'));
+  rw.append(d);});})();
+
+/* ===== Verteilung ===== */
+(()=>{const split=document.getElementById('split');if(!n)return;
+ const panel=(t,sub,list)=>{const p=el('div','panel');p.append(el('h4','',t),el('div','sub',sub));const ds=el('div','dist');
+  list.forEach(([lab,fn,c])=>{const cnt=allH.filter(fn).length;const row=el('div','row');row.append(el('span','',lab));const b=el('div','bar');const i=el('i');i.dataset.w=(cnt/allH.length*100)+'%';i.style.background=c;b.append(i);row.append(b,el('b','num',String(cnt)));ds.append(row);});
+  p.append(ds);return p;};
+ split.append(
+  panel('Ergebnisse',allH.length+' Löcher',[['Birdie oder besser',h=>h.s-h.par<=-1,'var(--green)'],['Par',h=>h.s===h.par,'var(--accent)'],['Bogey',h=>h.s-h.par===1,'var(--fg3)'],['Doppelbogey',h=>h.s-h.par===2,'var(--orange)'],['Schlechter',h=>h.s-h.par>=3,'var(--red)']]),
+  panel('Putts',sum(allH.map(h=>h.p))+' Putts auf '+allH.length+' Grüns',[['1 Putt',h=>h.p<=1,'var(--green)'],['2 Putts',h=>h.p===2,'var(--accent)'],['3 Putts +',h=>h.p>=3,'var(--red)']]));
+})();
+
+/* ===== Scorecards ===== */
+(()=>{const cards=document.getElementById('cards');
+ played.slice().reverse().forEach(r=>{const R=r.res;const c=el('div','card');
+  c.append(el('h3','','Runde '+r.no+' · '+COMBOS[r.combo].name),el('div','meta num',fmtD(r.date)+' · Abschlag '+PLAYER.tee));
+  const ch=el('div','chips num');
+  [['Brutto',R.score+' ('+sgn(R.score-R.par)+')'],['Stableford',R.stb!=null?R.stb+' Punkte':'–'],['Putts',String(R.putts)],['Spielvorgabe',R.ch!=null?String(R.ch):'offen'],['Gespieltes HCP',R.sd!=null?de(R.sd,1):'–']]
+   .forEach(([k,v])=>{const x=el('div','chip');x.append(el('span','',k),document.createTextNode(v));ch.append(x);});
+  c.append(ch);
+  [[0,9],[9,18]].forEach(([a,b])=>{const hs=R.holes.slice(a,b);const w=el('div','nine');const t=el('table','num');
+   t.append(el('caption','',hs[0].loop));
+   const line=(lab,fn,tot,cls)=>{const tr=el('tr',cls||'');tr.append(el('th','',lab));hs.forEach(h=>{const td=el('td');fn(td,h);tr.append(td);});tr.append(el('td','tot',tot));t.append(tr);};
+   line('Loch',(td,h)=>td.textContent=h.hole,'');
+   line('Par',(td,h)=>td.textContent=h.par,String(sum(hs.map(h=>h.par))));
+   line('Hp',(td,h)=>{td.textContent=h.hp;td.style.color='var(--fg3)';td.style.fontSize='12px';},'');
+   line('Schläge',(td,h)=>{const d=h.s-h.par;td.append(el('span','sc '+(d<=-1?'birdie':d===0?'par':d===1?'bogey':'double'),String(h.s)));},String(sum(hs.map(h=>h.s))));
+   line('Putts',(td,h)=>{td.textContent=h.p;if(h.p>=3)td.className='pt3';else if(h.p<=1)td.className='pt1';},String(sum(hs.map(h=>h.p))));
+   if(R.stb!=null)line('Punkte',(td,h)=>td.textContent=h.pts,String(sum(hs.map(h=>h.pts))),'pts');
+   w.append(t);c.append(w);});
+  const lg=el('div','legend');
+  [['birdie','3','Birdie'],['par','4','Par'],['bogey','5','Bogey'],['double','6','Doppelbogey +']].forEach(([k,v,l])=>{const s=el('span');s.append(el('span','sc '+k,v),document.createTextNode(l));lg.append(s);});
+  const sp=el('span');const i=el('i');i.style.background='var(--accent)';sp.append(i,document.createTextNode('Stableford-Punkte'));lg.append(sp);
+  c.append(lg);cards.append(c);});})();
+
+/* ===== Plätze ===== */
+const TEES=[['G','Gelb','#f2d03b'],['W','Weiß','#ffffff'],['B','Blau','#3a7bd5'],['R','Rot','#d93a3a']];
+let tee='G',cur='M';
+function hpFor(id){return Object.entries(COMBOS).filter(([k,c])=>c.a===id||c.b===id).map(([k,c])=>['Hp '+c.name,c.a===id?c.hp.slice(0,9):c.hp.slice(9)]);}
+function renderCourses(){
+ const t=document.getElementById('tees');t.innerHTML='';
+ TEES.forEach(([k,l,c])=>{const b=el('button');b.setAttribute('aria-pressed',k===tee);const d=el('span','dot');d.style.background=c;b.append(d,document.createTextNode(l));b.onclick=()=>{tee=k;renderCourses();};t.append(b);});
+ const o=document.getElementById('overview');o.innerHTML='';
+ Object.entries(COURSES).forEach(([id,c])=>{const d=el('div','cc');d.setAttribute('aria-current',id===cur);d.onclick=()=>{cur=id;renderCourses();};
+  d.append(el('div','k','Schleife'),el('div','t',c.name),el('div','big num','Par '+sum(c.par)),el('div','meta num',f(sum(c[tee]))+' m · längstes Loch '+f(Math.max(...c[tee]))+' m'));
+  const mix=el('div','mix');[[3,'--p3'],[4,'--p4'],[5,'--p5']].forEach(([pp,v])=>{const i=el('i');i.style.flex=c.par.filter(x=>x===pp).length;i.style.background=`var(${v})`;mix.append(i);});
+  const ml=el('div','mixl');[3,4,5].forEach(pp=>ml.append(el('span','',c.par.filter(x=>x===pp).length+'× Par '+pp)));
+  d.append(mix,ml);o.append(d);});
+ const c=COURSES[cur],p=document.getElementById('detail');p.innerHTML='';
+ p.append(el('h3','',c.name),el('p','char',c.char));
+ const len=c[tee],mx=Math.max(...len),mi=len.indexOf(mx),fa=el('div','facts');
+ [['Par',String(sum(c.par)),'9 Loch'],['Länge',f(sum(len))+' m','Abschlag '+TEES.find(x=>x[0]===tee)[1]],['Ø je Loch',f(Math.round(sum(len)/9))+' m',''],['Längstes Loch',f(mx)+' m','Loch '+(mi+1)+' · Par '+c.par[mi]]]
+  .forEach(([k,v,u])=>{const x=el('div','f');x.append(el('div','k',k),el('div','v num',v),el('div','u',u));fa.append(x);});
+ p.append(fa);
+ const chd=el('div','chart');p.append(chd);
+ const W=Math.max(300,chd.clientWidth||900),H=230,m={t:22,b:44},max=Math.max(...Object.values(COURSES).flatMap(k=>k.W)),bw=W/9,NS='http://www.w3.org/2000/svg';
+ const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+ const mk=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+ len.forEach((v,i)=>{const h=(H-m.t-m.b)*v/max,x=i*bw+bw*.18,w=bw*.64,y=H-m.b-h;
+  svg.append(mk('rect',{x,y,width:w,height:h,rx:Math.min(8,w/2),fill:`var(--p${c.par[i]})`}));
+  [[v,y-6,12,600,'var(--fg)'],[i+1,H-m.b+18,13,600,'var(--fg)'],['Par '+c.par[i],H-m.b+34,11,400,'var(--fg3)']].forEach(([tx,yy,fs,fw,fill])=>{const e=mk('text',{x:x+w/2,y:yy,'text-anchor':'middle','font-size':fs,'font-weight':fw,fill});e.textContent=tx;svg.append(e);});});
+ svg.append(mk('line',{x1:0,x2:W,y1:H-m.b,y2:H-m.b,stroke:'var(--line)'}));chd.append(svg);
+ const lg=el('div','legend');[[3,'--p3'],[4,'--p4'],[5,'--p5']].forEach(([pp,v])=>{const s=el('span');const i=el('i');i.style.background=`var(${v})`;s.append(i,document.createTextNode('Par '+pp));lg.append(s);});lg.append(el('span','','Länge in Metern'));p.append(lg);
+ const sc=el('div');sc.style.overflowX='auto';const tb=el('table','hp num');
+ const r0=el('tr');r0.append(el('th','','Loch'));for(let i=1;i<=9;i++)r0.append(el('td','',String(i)));tb.append(r0);
+ const rp=el('tr');rp.append(el('th','','Par'));c.par.forEach(v=>rp.append(el('td','',String(v))));tb.append(rp);
+ hpFor(cur).forEach(([lab,hp])=>{const tr=el('tr');tr.append(el('th','',lab));hp.forEach(v=>tr.append(el('td','',String(v))));tb.append(tr);});
+ sc.append(tb);p.append(sc);
+ const cb=document.getElementById('combos');cb.innerHTML='';
+ const h=el('tr');['Kombination','Par','CR','Slope',...TEES.map(x=>x[1])].forEach(x=>h.append(el('th','',x)));cb.append(h);
+ Object.entries(COMBOS).forEach(([k,cmb])=>{const A=COURSES[cmb.a],B=COURSES[cmb.b];const tr=el('tr');const td=el('td');td.append(el('b','',cmb.name));
+  ROUNDS.filter(r=>r.combo===k).forEach(r=>td.append(el('span','tag','R'+r.no)));tr.append(td);
+  tr.append(el('td','',String(sum(A.par)+sum(B.par))),el('td','',cmb.cr??'–'),el('td','',cmb.slope??'–'));
+  TEES.forEach(([t])=>{const x=el('td','',f(sum(A[t])+sum(B[t])));if(t===tee)x.style.fontWeight='700';tr.append(x);});cb.append(tr);});
+}
+renderCourses();
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCourses,150);});
+
+/* ===== Methode & Footer ===== */
+(()=>{const r=played.find(x=>x.res.sd!=null);
+ if(r){const c=COMBOS[r.combo],R=r.res;
+  document.getElementById('m-ch').textContent=`${c.name}, ${PLAYER.tee}: ${de(PLAYER.hcpi,1)} × ${c.slope} ÷ 113 + (${c.cr} − ${R.par}) = ${de(PLAYER.hcpi*c.slope/113+(c.cr-R.par),1)} → ${R.ch}.`;
+  document.getElementById('m-sd').textContent=`Runde ${r.no}: (${R.ags} − ${c.cr}) × 113 ÷ ${c.slope} = ${de(R.sd,1)}.`;}
+ const open=Object.values(COMBOS).filter(c=>c.cr==null).map(c=>c.name);
+ document.getElementById('foot').textContent=`Stand ${UPDATED}. Längen, Par und Lochvorgaben von den Original-Scorecards des Djerba Golf Club, Spielvorgaben aus der Spielvorgabentabelle des Clubs (Palmier / Mer, Stand 12.02.2026)`+(open.length?`; für ${open.join(' und ')} liegt sie noch nicht vor`:'')+`. Charakter der Plätze: 1golf.eu, ROBINSON Djerba Bahiya.`;})();
+
+/* ===== Motion ===== */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.dist i').forEach(i=>i.style.width=i.dataset.w);io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(s=>io.observe(s));
+if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.reveal').forEach(s=>s.classList.add('in'));document.querySelectorAll('.dist i').forEach(i=>i.style.width=i.dataset.w);}
+</script>
+</body>
+</html>
