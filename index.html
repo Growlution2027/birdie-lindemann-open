@@ -150,6 +150,9 @@ section{padding:88px 0 0}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
 .cc{background:var(--bg2);border-radius:18px;padding:22px 20px;cursor:pointer;transition:transform .25s}
 .cc:hover{transform:scale(1.015)}
+.cc .illu{margin:-22px -20px 16px;border-radius:18px 18px 0 0;overflow:hidden;line-height:0}
+.cc .illu svg{width:100%;height:auto;display:block}
+.cc{overflow:hidden}
 .cc[aria-current=true]{outline:2px solid var(--accent);outline-offset:-2px}
 .cc .k{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--fg2)}
 .cc .t{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-top:6px}
@@ -225,13 +228,13 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 <main class="wrap">
   <section id="club" class="reveal">
     <h2 class="sh">Der Club.</h2>
-    <p class="intro">Der Djerba Golf Club liegt in der Zone touristique von Midoun an der Ostküste der Insel, zwischen Dattelpalmen, Dünen und Mittelmeer. Martin Hawtree hat die Anlage 1995 als Links-Kurs angelegt: 27 Loch in drei Schleifen à 9 Loch, die sich frei zu 18 kombinieren lassen. Les Palmiers hat mit drei Par 5 das höchste Par, auf La Mer liegen einige Fairways und Grüns direkt am Meer, Les Acacias ist die kürzeste Schleife. Gespielt wird das ganze Jahr. Range, Putting- und Chipping-Grüns liegen direkt am Clubhaus.</p>
+    <p class="intro">Der Djerba Golf Club liegt in der Zone touristique von Midoun an der Ostküste der Insel, zwischen Dattelpalmen, Dünen und Mittelmeer. Martin Hawtree hat die Anlage 1995 als Links-Kurs angelegt: 27 Loch auf drei 9-Loch-Plätzen, die sich frei zu 18 Loch kombinieren lassen. Les Palmiers hat mit drei Par 5 das höchste Par, auf La Mer liegen einige Fairways und Grüns direkt am Meer, Les Acacias ist der kürzeste Platz. Gespielt wird das ganze Jahr. Range, Putting- und Chipping-Grüns liegen direkt am Clubhaus.</p>
     <div class="clubfacts" id="clubfacts"></div>
   </section>
 
   <section id="schleifen" class="reveal">
-    <h2 class="sh">Drei Schleifen. Ein Kurs.</h2>
-    <p class="ss">Jede Schleife Loch für Loch, die Breite steht für die Länge, die Farbe für das Par.</p>
+    <h2 class="sh">Drei Plätze. Ein Kurs.</h2>
+    <p class="ss">Jeder Platz Loch für Loch, die Breite steht für die Länge, die Farbe für das Par.</p>
     <div class="seg" id="tees2" role="group" aria-label="Abschlag"></div>
     <div class="loops" id="loops"></div>
     <div class="legend" id="loopslegend"></div>
@@ -280,13 +283,13 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
   <div class="wrap">
     <section id="plaetze" class="reveal">
       <h2 class="sh">Die Plätze.</h2>
-      <p class="ss">27 Loch in drei Schleifen à 9 Loch, frei kombinierbar zu 18. Links-Charakter zwischen Palmen, Dünen und Meer. Design Martin Hawtree, eröffnet 1995.</p>
+      <p class="ss">27 Loch auf drei 9-Loch-Plätzen, frei kombinierbar zu 18. Links-Charakter zwischen Palmen, Dünen und Meer. Design Martin Hawtree, eröffnet 1995.</p>
       <div class="seg" id="tees" role="group" aria-label="Abschlag"></div>
       <div class="grid3" id="overview"></div>
       <div class="card detail" id="detail"></div>
       <h3 style="font-size:26px;letter-spacing:-.02em;margin:56px 0 0">Die Kombinationen.</h3>
       <div style="overflow-x:auto"><table class="combo num" id="combos"></table></div>
-      <p class="note">Lochvorgaben gelten je Kombination. Palmiers und Les Acacias behalten ihre Werte immer, auf La Mer verschieben sie sich, je nachdem ob die Schleife vorne oder hinten gespielt wird.</p>
+      <p class="note">Lochvorgaben gelten je Kombination. Palmiers und Les Acacias behalten ihre Werte immer, auf La Mer verschieben sie sich, je nachdem ob der Platz vorne oder hinten gespielt wird.</p>
     </section>
   </div>
 </div>
@@ -308,13 +311,13 @@ const PLAYER={name:'Dr. Maurizio Lindemann',club:'Golfclub Essen-Heidhausen',hcp
 const COURSES={
  P:{name:'Les Palmiers',short:'Palmiers',par:[4,3,5,4,4,5,4,3,5],
   W:[345,145,484,329,275,521,273,170,503],G:[304,139,458,303,249,501,260,138,475],B:[280,133,420,274,238,462,250,118,455],R:[253,119,397,220,206,439,232,99,435],
-  char:'Die Schleife mit dem höchsten Par: drei Par 5, das längste misst 521 m von Weiß. Gefragt sind lange und platzierte Schläge, dazu Wasserhindernisse im Spiel.'},
+  char:'Der Platz mit dem höchsten Par: drei Par 5, das längste misst 521 m von Weiß. Gefragt sind lange und platzierte Schläge, dazu Wasserhindernisse im Spiel.'},
  M:{name:'La Mer',short:'La Mer',par:[4,4,4,5,4,3,5,4,3],
   W:[335,409,384,459,390,138,457,385,153],G:[324,379,357,443,368,116,439,350,120],B:[309,342,328,407,325,93,416,316,99],R:[281,309,292,373,298,83,368,292,86],
   char:'Die längsten Spielbahnen der Anlage. Einige Fairways und Grüns liegen direkt am Meer, hier entscheidet vor allem der Wind.'},
  A:{name:'Les Acacias',short:'Les Acacias',par:[4,4,5,3,4,3,4,4,4],
   W:[358,261,503,145,324,166,296,331,340],G:[329,239,473,119,296,142,262,308,314],B:[272,199,439,83,273,118,228,236,255],R:[266,192,432,79,267,112,223,232,246],
-  char:'Die kürzeste Schleife, Par 35: sechs Par 4, zwei Par 3 und ein Par 5.'}
+  char:'Der kürzeste Platz, Par 35: sechs Par 4, zwei Par 3 und ein Par 5.'}
 };
 /* Kombinationen: Reihenfolge und Lochvorgaben laut Scorecards; CR/Slope Gelb laut Spielvorgabentabelle (null = noch nicht vorliegend) */
 const COMBOS={
@@ -436,13 +439,36 @@ const avg=(arr)=>arr.length?sum(arr)/arr.length:null;
 /* ===== Plätze ===== */
 const TEES=[['G','Gelb','#f2d03b'],['W','Weiß','#ffffff'],['B','Blau','#3a7bd5'],['R','Rot','#d93a3a']];
 let tee='G',cur='M';
+/* Illustrationen der Plätze (eigene Zeichnung, kein Lageplan) */
+const PALM=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 C 2 -30 -2 -60 4 -92" stroke="#5b4a32" stroke-width="5" fill="none" stroke-linecap="round"/><g fill="#2f6b3a"><path d="M4 -92 C -20 -100 -40 -92 -52 -76 C -34 -86 -16 -88 4 -88Z"/><path d="M4 -92 C 26 -102 46 -94 58 -78 C 40 -88 22 -88 4 -88Z"/><path d="M4 -92 C -6 -112 -26 -120 -42 -116 C -22 -110 -8 -102 4 -90Z"/><path d="M4 -92 C 14 -114 34 -120 50 -114 C 30 -110 16 -102 4 -90Z"/><path d="M4 -92 C 0 -116 6 -128 14 -134 C 10 -118 8 -104 6 -90Z"/></g></g>`;
+const ACACIA=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 L0 -34 M0 -30 L-14 -46 M0 -28 L12 -44" stroke="#5b4a32" stroke-width="4" fill="none" stroke-linecap="round"/><ellipse cx="-2" cy="-52" rx="46" ry="12" fill="#4f7a3a"/><ellipse cx="6" cy="-58" rx="30" ry="8" fill="#5f8c44"/></g>`;
+const FLAG=(x,y)=>`<g transform="translate(${x} ${y})"><ellipse cx="0" cy="0" rx="34" ry="9" fill="#8ccf6a"/><path d="M0 0 V-40" stroke="#fff" stroke-width="2.5"/><path d="M0 -40 L18 -34 L0 -28Z" fill="#e5484d"/></g>`;
+function illu(id){
+ const sky=id==='M'?['#2f6fc4','#9fd0f2']:id==='A'?['#4d86cf','#d9e9f5']:['#3a78c9','#b9dbf3'];
+ let back='';
+ if(id==='M') back=`<rect x="0" y="118" width="400" height="34" fill="#1e74b8"/><path d="M0 128 Q 25 122 50 128 T 100 128 T 150 128 T 200 128 T 250 128 T 300 128 T 350 128 T 400 128" stroke="#cfe9fb" stroke-width="2" fill="none" opacity=".7"/><path d="M0 140 Q 30 134 60 140 T 120 140 T 180 140 T 240 140 T 300 140 T 360 140 T 420 140" stroke="#cfe9fb" stroke-width="1.5" fill="none" opacity=".5"/><circle cx="330" cy="58" r="20" fill="#ffe7a3"/>`;
+ else if(id==='P') back=`<path d="M0 140 Q 100 120 200 132 T 400 126 V 160 H0Z" fill="#7fae5c"/>`;
+ else back=`<path d="M0 138 Q 120 126 240 134 T 400 132 V 160 H0Z" fill="#a6b86a"/>`;
+ let fg='';
+ if(id==='P') fg=PALM(60,190,.95)+PALM(108,176,.7)+PALM(262,200,.95)+PALM(392,178,.7)+`<ellipse cx="230" cy="214" rx="46" ry="10" fill="#4aa3df"/>`;
+ if(id==='M') fg=PALM(36,178,.6)+PALM(370,182,.7)+`<path d="M300 200 q20 -14 44 -6 q16 6 30 0 v14 h-74z" fill="#e9d7a5"/>`;
+ if(id==='A') fg=ACACIA(70,184,1)+ACACIA(330,178,.85)+ACACIA(380,190,.6)+`<ellipse cx="248" cy="200" rx="26" ry="7" fill="#efe1b4"/><ellipse cx="150" cy="214" rx="20" ry="6" fill="#efe1b4"/>`;
+ return `<svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration ${COURSES[id].name}">
+ <defs><linearGradient id="s${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sky[0]}"/><stop offset="1" stop-color="${sky[1]}"/></linearGradient>
+ <linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fae4f"/><stop offset="1" stop-color="#3f8a3a"/></linearGradient></defs>
+ <rect width="400" height="225" fill="url(#s${id})"/>${back}
+ <path d="M0 150 Q 120 140 200 150 T 400 148 V225 H0Z" fill="url(#g${id})"/>
+ <path d="M30 225 C 120 196 170 186 240 180 C 290 176 320 172 340 168 L 360 176 C 320 184 280 192 250 198 C 190 208 130 216 110 225Z" fill="#8fd16b" opacity=".85"/>
+ ${fg}${FLAG(338,170)}</svg>`;
+}
 function hpFor(id){return Object.entries(COMBOS).filter(([k,c])=>c.a===id||c.b===id).map(([k,c])=>['Hp '+c.name,c.a===id?c.hp.slice(0,9):c.hp.slice(9)]);}
 function renderCourses(){
  const t=document.getElementById('tees');t.innerHTML='';
  TEES.forEach(([k,l,c])=>{const b=el('button');b.setAttribute('aria-pressed',k===tee);const d=el('span','dot');d.style.background=c;b.append(d,document.createTextNode(l));b.onclick=()=>{tee=k;renderCourses();};t.append(b);});
  const o=document.getElementById('overview');o.innerHTML='';
  Object.entries(COURSES).forEach(([id,c])=>{const d=el('div','cc');d.setAttribute('aria-current',id===cur);d.onclick=()=>{cur=id;renderCourses();};
-  d.append(el('div','k','Schleife'),el('div','t',c.name),el('div','big num','Par '+sum(c.par)),el('div','meta num',f(sum(c[tee]))+' m · längstes Loch '+f(Math.max(...c[tee]))+' m'));
+  const ill=el('div','illu');ill.innerHTML=illu(id);d.append(ill);
+  d.append(el('div','k','9-Loch-Platz'),el('div','t',c.name),el('div','big num','Par '+sum(c.par)),el('div','meta num',f(sum(c[tee]))+' m · längstes Loch '+f(Math.max(...c[tee]))+' m'));
   const mix=el('div','mix');[[3,'--p3'],[4,'--p4'],[5,'--p5']].forEach(([pp,v])=>{const i=el('i');i.style.flex=c.par.filter(x=>x===pp).length;i.style.background=`var(${v})`;mix.append(i);});
   const ml=el('div','mixl');[3,4,5].forEach(pp=>ml.append(el('span','',c.par.filter(x=>x===pp).length+'× Par '+pp)));
   d.append(mix,ml);o.append(d);});
@@ -477,7 +503,7 @@ function renderCourses(){
 (()=>{const pars=Object.values(COMBOS).map(c=>sum(COURSES[c.a].par)+sum(COURSES[c.b].par));
  const longest=Math.max(...Object.values(COMBOS).map(c=>sum(COURSES[c.a].W)+sum(COURSES[c.b].W)));
  const cf=document.getElementById('clubfacts');
- [['27','Löcher'],['3','Schleifen à 9 Loch'],['Par '+Math.min(...pars)+'–'+Math.max(...pars),'je Kombination'],[f(longest)+' m','längste Runde, Weiß'],['1995','eröffnet, Design Martin Hawtree']]
+ [['27','Löcher'],['3','Plätze à 9 Loch'],['Par '+Math.min(...pars)+'–'+Math.max(...pars),'je Kombination'],[f(longest)+' m','längste Runde, Weiß'],['1995','eröffnet, Design Martin Hawtree']]
   .forEach(([v,k])=>{const d=el('div','cf');d.append(el('div','v num',v),el('div','k',k));cf.append(d);});})();
 function renderLoops(){
  const t=document.getElementById('tees2');t.innerHTML='';
@@ -492,7 +518,7 @@ function renderLoops(){
   wrap.append(r);const ru=el('div','ruler num');ru.append(el('span','','Loch 1'),el('span','','Loch 9 · '+f(tot)+' m'));wrap.append(ru);w.append(wrap);box.append(w);});
  const lg=document.getElementById('loopslegend');lg.innerHTML='';
  [[3,'--p3'],[4,'--p4'],[5,'--p5']].forEach(([pp,v])=>{const s=el('span');const i=el('i');i.style.background=`var(${v})`;s.append(i,document.createTextNode('Par '+pp));lg.append(s);});
- lg.append(el('span','','Balkenlänge im Verhältnis zur längsten Schleife'));
+ lg.append(el('span','','Balkenlänge im Verhältnis zum längsten Platz'));
 }
 const _rc=renderCourses;renderCourses=function(){_rc();renderLoops();};
 renderCourses();
