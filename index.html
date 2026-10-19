@@ -218,7 +218,7 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 </style>
 </head>
 <body>
-<nav><div class="wrap"><b>Birdie Lindemann Open</b><a href="#club">Club</a><a href="#stand">Stand</a><a href="#runden">Runden</a><a href="#scorecards">Scorecards</a><a href="#plaetze">Plätze</a></div></nav>
+<nav><div class="wrap"><b>Birdie Lindemann Open</b><a href="#club">Club</a><a href="#plaetze">Plätze</a><a href="#stand">Stand</a><a href="#runden">Runden</a><a href="#scorecards">Scorecards</a></div></nav>
 
 <header class="hero">
   <div class="hero-in">
@@ -236,12 +236,15 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
     <div class="clubfacts" id="clubfacts"></div>
   </section>
 
-  <section id="schleifen" class="reveal">
+  <section id="plaetze" class="reveal">
     <h2 class="sh">Drei Plätze. Ein Kurs.</h2>
-    <p class="ss">Jeder Platz Loch für Loch, die Breite steht für die Länge, die Farbe für das Par.</p>
-    <div class="seg" id="tees2" role="group" aria-label="Abschlag"></div>
-    <div class="loops" id="loops"></div>
-    <div class="legend" id="loopslegend"></div>
+    <p class="ss">Tippe auf einen Platz für Lochlängen und Lochvorgaben. Der Abschlag lässt sich umschalten.</p>
+    <div class="seg" id="tees" role="group" aria-label="Abschlag"></div>
+    <div class="grid3" id="overview"></div>
+    <div class="card detail" id="detail"></div>
+    <h3 style="font-size:26px;letter-spacing:-.02em;margin:56px 0 0">Die Kombinationen.</h3>
+    <div style="overflow-x:auto"><table class="combo num" id="combos"></table></div>
+    <p class="note">Lochvorgaben gelten je Kombination. Palmiers und Les Acacias behalten ihre Werte immer, auf La Mer verschieben sie sich, je nachdem ob der Platz vorne oder hinten gespielt wird.</p>
   </section>
 
   <section id="spieler" class="reveal">
@@ -283,29 +286,7 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
   </section>
 </main>
 
-<div class="grey">
-  <div class="wrap">
-    <section id="plaetze" class="reveal">
-      <h2 class="sh">Die Plätze.</h2>
-      <p class="ss">27 Loch auf drei 9-Loch-Plätzen, frei kombinierbar zu 18. Links-Charakter zwischen Palmen, Dünen und Meer. Design Martin Hawtree, eröffnet 1995.</p>
-      <div class="seg" id="tees" role="group" aria-label="Abschlag"></div>
-      <div class="grid3" id="overview"></div>
-      <div class="card detail" id="detail"></div>
-      <h3 style="font-size:26px;letter-spacing:-.02em;margin:56px 0 0">Die Kombinationen.</h3>
-      <div style="overflow-x:auto"><table class="combo num" id="combos"></table></div>
-      <p class="note">Lochvorgaben gelten je Kombination. Palmiers und Les Acacias behalten ihre Werte immer, auf La Mer verschieben sie sich, je nachdem ob der Platz vorne oder hinten gespielt wird.</p>
-    </section>
-  </div>
-</div>
-
 <main class="wrap">
-  <section class="reveal">
-    <h2 class="sh">So wird gerechnet.</h2>
-    <div class="method">
-      <div class="panel"><h4>Spielvorgabe</h4><p><code>Handicap-Index × Slope ÷ 113 + (Course Rating − Par)</code>, gerundet. Werte aus der Spielvorgabentabelle des Clubs für den gespielten Abschlag.</p><p id="m-ch"></p></div>
-      <div class="panel"><h4>Gespieltes Handicap</h4><p>Score-Differenz nach WHS: <code>(bereinigtes Brutto − Course Rating) × 113 ÷ Slope</code>. Pro Loch zählt höchstens Netto-Doppelbogey. Ohne Witterungskorrektur (PCC).</p><p id="m-sd"></p></div>
-    </div>
-  </section>
   <footer id="foot"></footer>
 </main>
 
@@ -524,13 +505,12 @@ function renderLoops(){
  [[3,'--p3'],[4,'--p4'],[5,'--p5']].forEach(([pp,v])=>{const s=el('span');const i=el('i');i.style.background=`var(${v})`;s.append(i,document.createTextNode('Par '+pp));lg.append(s);});
  lg.append(el('span','','Balkenlänge im Verhältnis zum längsten Platz'));
 }
-const _rc=renderCourses;renderCourses=function(){_rc();renderLoops();};
 renderCourses();
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCourses,150);});
 
 /* ===== Methode & Footer ===== */
 (()=>{const r=played.find(x=>x.res.sd!=null);
- if(r){const c=COMBOS[r.combo],R=r.res;
+ if(r&&document.getElementById('m-ch')){const c=COMBOS[r.combo],R=r.res;
   document.getElementById('m-ch').textContent=`${c.name}, ${PLAYER.tee}: ${de(PLAYER.hcpi,1)} × ${c.slope} ÷ 113 + (${c.cr} − ${R.par}) = ${de(PLAYER.hcpi*c.slope/113+(c.cr-R.par),1)} → ${R.ch}.`;
   document.getElementById('m-sd').textContent=`Runde ${r.no}: (${R.ags} − ${c.cr}) × 113 ÷ ${c.slope} = ${de(R.sd,1)}.`;}
  const open=Object.values(COMBOS).filter(c=>c.cr==null).map(c=>c.name);
