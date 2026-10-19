@@ -76,10 +76,11 @@ section{padding:88px 0 0}
 
 /* Player */
 .pwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:12px;margin-top:28px;align-items:stretch}
-.pfoto{margin:0;position:relative;border-radius:22px;overflow:hidden;background:var(--bg2);min-height:600px}
+.pfoto{margin:0;position:relative;border-radius:22px;overflow:hidden;background:var(--bg2);min-height:480px}
 .pfoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
 .pfoto figcaption{position:absolute;left:16px;bottom:16px;background:rgba(0,0,0,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px}
 .player{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:12px}
+.player .tile{display:flex;flex-direction:column;justify-content:flex-end}
 .player .name{grid-column:span 2}
 .tile{background:var(--bg2);border-radius:18px;padding:22px 22px}
 .tile .k{font-size:13px;color:var(--fg2);font-weight:600}
@@ -204,7 +205,10 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
   section{padding-top:64px}.grey{padding:64px 0;margin-top:64px}
   .clubfacts{grid-template-columns:1fr 1fr}.cf{padding:18px 12px 18px 0!important;border-left:none!important;border-bottom:1px solid var(--line)}.cf:nth-child(even){padding-left:14px!important;border-left:1px solid var(--line)!important}.cf:last-child{grid-column:span 2;border-bottom:none}
   .ribbon{height:56px;gap:3px}.hole{padding:6px 4px;border-radius:9px}.hole .hl{display:none}.hole .hn{font-size:11px}
-  .pwrap{grid-template-columns:1fr}.pfoto{min-height:0;aspect-ratio:4/5}
+  .combo .opt{display:none}.combo td:first-child b{white-space:normal}.combo{font-size:12.5px}.combo th,.combo td{padding:10px 3px}
+  .rd{min-height:0}.player{grid-auto-rows:auto}.player .tile{justify-content:flex-start}
+  .dist .row{grid-template-columns:132px 1fr 22px!important}
+  .pwrap{display:block}.pfoto{min-height:0!important;height:auto;margin-bottom:12px}.pfoto img{position:relative!important;inset:auto;display:block;width:100%;height:auto!important;aspect-ratio:4/5;object-fit:cover}
   .stats{grid-template-columns:1fr 1fr}.stats .tile:first-child{grid-column:span 2}
   .rounds{grid-template-columns:1fr 1fr}
   .split,.method{grid-template-columns:1fr}
@@ -253,7 +257,7 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
   <section id="spieler" class="reveal">
     <h2 class="sh">Der Spieler.</h2>
     <div class="pwrap">
-      <figure class="pfoto"><img src="spieler.jpg" alt="Dr. Maurizio Lindemann mit Putter auf dem Grün" loading="lazy"><figcaption>Spielbereit. Mehr oder weniger.</figcaption></figure>
+      <figure class="pfoto"><img src="spieler.jpg" alt="Dr. Maurizio Lindemann mit Putter auf dem Grün" width="720" height="1280"><figcaption>Spielbereit. Mehr oder weniger.</figcaption></figure>
       <div class="player" id="player"></div>
     </div>
   </section>
@@ -483,10 +487,10 @@ function renderCourses(){
  hpFor(cur).forEach(([lab,hp])=>{const tr=el('tr');tr.append(el('th','',lab));hp.forEach(v=>tr.append(el('td','',String(v))));tb.append(tr);});
  sc.append(tb);p.append(sc);
  const cb=document.getElementById('combos');cb.innerHTML='';
- const h=el('tr');['Kombination','Par','CR','Slope',...TEES.map(x=>x[1])].forEach(x=>h.append(el('th','',x)));cb.append(h);
+ const h=el('tr');['Kombination','Par','CR','Slope',...TEES.map(x=>x[1])].forEach(x=>h.append(el('th',(x==='CR'||x==='Slope')?'opt':'',x)));cb.append(h);
  Object.entries(COMBOS).forEach(([k,cmb])=>{const A=COURSES[cmb.a],B=COURSES[cmb.b];const tr=el('tr');const td=el('td');td.append(el('b','',cmb.name));
   ROUNDS.filter(r=>r.combo===k).forEach(r=>td.append(el('span','tag','R'+r.no)));tr.append(td);
-  tr.append(el('td','',String(sum(A.par)+sum(B.par))),el('td','',cmb.cr??'–'),el('td','',cmb.slope??'–'));
+  tr.append(el('td','',String(sum(A.par)+sum(B.par))),el('td','opt',cmb.cr??'–'),el('td','opt',cmb.slope??'–'));
   TEES.forEach(([t])=>{const x=el('td','',f(sum(A[t])+sum(B[t])));if(t===tee)x.style.fontWeight='700';tr.append(x);});cb.append(tr);});
 }
 /* ===== Club & Schleifen ===== */
