@@ -50,6 +50,27 @@ section{padding:88px 0 0}
 .grey section{padding-top:0}
 .grey .tile,.grey .rd,.grey .panel,.grey .card,.grey .cc{background:var(--card)}
 
+/* Club */
+.intro{font-size:clamp(19px,2.3vw,26px);line-height:1.38;font-weight:500;letter-spacing:-.015em;margin:22px 0 0;max-width:860px;color:var(--fg)}
+.clubfacts{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:40px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cf{padding:22px 16px 22px 0}
+.cf+.cf{padding-left:18px;border-left:1px solid var(--line)}
+.cf .v{white-space:nowrap;font-size:clamp(24px,3.1vw,38px);font-weight:700;letter-spacing:-.035em;line-height:1}
+.cf .k{font-size:13px;color:var(--fg2);margin-top:8px}
+.loops{margin-top:28px;display:flex;flex-direction:column;gap:26px}
+.loop .lh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.loop .lh b{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.loop .lh span{font-size:14px;color:var(--fg2)}
+.ribbon{display:flex;gap:4px;margin-top:12px;height:64px}
+.hole{position:relative;border-radius:12px;display:flex;flex-direction:column;justify-content:space-between;padding:8px 8px 7px;color:#fff;min-width:0;overflow:hidden;transition:flex-grow .7s cubic-bezier(.2,.8,.2,1)}
+.hole .hn{font-size:12px;font-weight:700;opacity:.9}
+.hole .hl{font-size:12px;font-weight:600;white-space:nowrap}
+.hole.p3{background:var(--p3);color:#0b2a4f}
+.hole.p4{background:var(--p4)}
+.hole.p5{background:var(--p5)}
+@media (prefers-color-scheme: dark){.hole.p3{color:#fff}.hole.p5{color:#0b1d36}}
+.ruler{display:flex;justify-content:space-between;font-size:11px;color:var(--fg3);margin-top:6px}
+
 /* Player */
 .player{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;margin-top:28px}
 .tile{background:var(--bg2);border-radius:18px;padding:22px 22px}
@@ -168,6 +189,8 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 
 @media (max-width:760px){
   section{padding-top:64px}.grey{padding:64px 0;margin-top:64px}
+  .clubfacts{grid-template-columns:1fr 1fr}.cf{padding:18px 12px 18px 0!important;border-left:none!important;border-bottom:1px solid var(--line)}.cf:nth-child(even){padding-left:14px!important;border-left:1px solid var(--line)!important}.cf:last-child{grid-column:span 2;border-bottom:none}
+  .ribbon{height:56px;gap:3px}.hole{padding:6px 4px;border-radius:9px}.hole .hl{display:none}.hole .hn{font-size:11px}
   .player{grid-template-columns:1fr 1fr}.player .name{grid-column:span 2}
   .stats{grid-template-columns:1fr 1fr}.stats .tile:first-child{grid-column:span 2}
   .rounds{grid-template-columns:1fr 1fr}
@@ -184,7 +207,7 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 </style>
 </head>
 <body>
-<nav><div class="wrap"><b>Djerba Turnier</b><a href="#stand">Stand</a><a href="#runden">Runden</a><a href="#scorecards">Scorecards</a><a href="#plaetze">Plätze</a></div></nav>
+<nav><div class="wrap"><b>Djerba Turnier</b><a href="#club">Club</a><a href="#stand">Stand</a><a href="#runden">Runden</a><a href="#scorecards">Scorecards</a><a href="#plaetze">Plätze</a></div></nav>
 
 <header class="hero">
   <div class="hero-in">
@@ -195,6 +218,20 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 </header>
 
 <main class="wrap">
+  <section id="club" class="reveal">
+    <h2 class="sh">Der Club.</h2>
+    <p class="intro">Der Djerba Golf Club liegt in der Zone touristique von Midoun an der Ostküste der Insel, zwischen Dattelpalmen, Dünen und Mittelmeer. Martin Hawtree hat die Anlage 1995 als Links-Kurs angelegt: 27 Loch in drei Schleifen à 9 Loch, die sich frei zu 18 kombinieren lassen. Les Palmiers hat mit drei Par 5 das höchste Par, auf La Mer liegen einige Fairways und Grüns direkt am Meer, Les Acacias ist die kürzeste Schleife. Gespielt wird das ganze Jahr. Range, Putting- und Chipping-Grüns liegen direkt am Clubhaus.</p>
+    <div class="clubfacts" id="clubfacts"></div>
+  </section>
+
+  <section id="schleifen" class="reveal">
+    <h2 class="sh">Drei Schleifen. Ein Kurs.</h2>
+    <p class="ss">Jede Schleife Loch für Loch, die Breite steht für die Länge, die Farbe für das Par.</p>
+    <div class="seg" id="tees2" role="group" aria-label="Abschlag"></div>
+    <div class="loops" id="loops"></div>
+    <div class="legend" id="loopslegend"></div>
+  </section>
+
   <section id="spieler" class="reveal">
     <h2 class="sh">Der Spieler.</h2>
     <div class="player" id="player"></div>
@@ -428,6 +465,28 @@ function renderCourses(){
   tr.append(el('td','',String(sum(A.par)+sum(B.par))),el('td','',cmb.cr??'–'),el('td','',cmb.slope??'–'));
   TEES.forEach(([t])=>{const x=el('td','',f(sum(A[t])+sum(B[t])));if(t===tee)x.style.fontWeight='700';tr.append(x);});cb.append(tr);});
 }
+/* ===== Club & Schleifen ===== */
+(()=>{const pars=Object.values(COMBOS).map(c=>sum(COURSES[c.a].par)+sum(COURSES[c.b].par));
+ const longest=Math.max(...Object.values(COMBOS).map(c=>sum(COURSES[c.a].W)+sum(COURSES[c.b].W)));
+ const cf=document.getElementById('clubfacts');
+ [['27','Löcher'],['3','Schleifen à 9 Loch'],['Par '+Math.min(...pars)+'–'+Math.max(...pars),'je Kombination'],[f(longest)+' m','längste Runde, Weiß'],['1995','eröffnet, Design Martin Hawtree']]
+  .forEach(([v,k])=>{const d=el('div','cf');d.append(el('div','v num',v),el('div','k',k));cf.append(d);});})();
+function renderLoops(){
+ const t=document.getElementById('tees2');t.innerHTML='';
+ TEES.forEach(([k,l,c])=>{const b=el('button');b.setAttribute('aria-pressed',k===tee);const d=el('span','dot');d.style.background=c;b.append(d,document.createTextNode(l));b.onclick=()=>{tee=k;renderCourses();};t.append(b);});
+ const box=document.getElementById('loops');box.innerHTML='';
+ const maxTot=Math.max(...Object.values(COURSES).map(c=>sum(c[tee])));
+ Object.values(COURSES).forEach(c=>{const L=c[tee],tot=sum(L);
+  const w=el('div','loop');const h=el('div','lh');h.append(el('b','',c.name),el('span','num','Par '+sum(c.par)+' · '+f(tot)+' m · '+c.par.filter(x=>x===3).length+'× Par 3, '+c.par.filter(x=>x===4).length+'× Par 4, '+c.par.filter(x=>x===5).length+'× Par 5'));w.append(h);
+  const wrap=el('div');wrap.style.width=(tot/maxTot*100)+'%';
+  const r=el('div','ribbon');
+  L.forEach((v,i)=>{const hd=el('div','hole p'+c.par[i]);hd.style.flex=v+' 1 0';hd.title='Loch '+(i+1)+' · Par '+c.par[i]+' · '+v+' m';hd.append(el('span','hn',String(i+1)),el('span','hl num',v+' m'));r.append(hd);});
+  wrap.append(r);const ru=el('div','ruler num');ru.append(el('span','','Loch 1'),el('span','','Loch 9 · '+f(tot)+' m'));wrap.append(ru);w.append(wrap);box.append(w);});
+ const lg=document.getElementById('loopslegend');lg.innerHTML='';
+ [[3,'--p3'],[4,'--p4'],[5,'--p5']].forEach(([pp,v])=>{const s=el('span');const i=el('i');i.style.background=`var(${v})`;s.append(i,document.createTextNode('Par '+pp));lg.append(s);});
+ lg.append(el('span','','Balkenlänge im Verhältnis zur längsten Schleife'));
+}
+const _rc=renderCourses;renderCourses=function(){_rc();renderLoops();};
 renderCourses();
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCourses,150);});
 
