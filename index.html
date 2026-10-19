@@ -155,6 +155,7 @@ section{padding:88px 0 0}
 .cc:hover{transform:scale(1.015)}
 .cc .illu{margin:-22px -20px 16px;border-radius:18px 18px 0 0;overflow:hidden;line-height:0}
 .cc .illu svg{width:100%;height:auto;display:block}
+.cc .illu img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
 .cc{overflow:hidden}
 .cc[aria-current=true]{outline:2px solid var(--accent);outline-offset:-2px}
 .cc .k{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--fg2)}
@@ -424,6 +425,7 @@ const avg=(arr)=>arr.length?sum(arr)/arr.length:null;
 /* ===== Plätze ===== */
 const TEES=[['G','Gelb','#f2d03b'],['W','Weiß','#ffffff'],['B','Blau','#3a7bd5'],['R','Rot','#d93a3a']];
 let tee='G',cur='M';
+const PHOTO={P:'platz-palmiers.jpg',M:'platz-lamer.jpg',A:'platz-acacias.jpg'};
 /* Illustrationen der Plätze (eigene Zeichnung, kein Lageplan) */
 const PALM=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 C 2 -30 -2 -60 4 -92" stroke="#5b4a32" stroke-width="5" fill="none" stroke-linecap="round"/><g fill="#2f6b3a"><path d="M4 -92 C -20 -100 -40 -92 -52 -76 C -34 -86 -16 -88 4 -88Z"/><path d="M4 -92 C 26 -102 46 -94 58 -78 C 40 -88 22 -88 4 -88Z"/><path d="M4 -92 C -6 -112 -26 -120 -42 -116 C -22 -110 -8 -102 4 -90Z"/><path d="M4 -92 C 14 -114 34 -120 50 -114 C 30 -110 16 -102 4 -90Z"/><path d="M4 -92 C 0 -116 6 -128 14 -134 C 10 -118 8 -104 6 -90Z"/></g></g>`;
 const ACACIA=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 L0 -34 M0 -30 L-14 -46 M0 -28 L12 -44" stroke="#5b4a32" stroke-width="4" fill="none" stroke-linecap="round"/><ellipse cx="-2" cy="-52" rx="46" ry="12" fill="#4f7a3a"/><ellipse cx="6" cy="-58" rx="30" ry="8" fill="#5f8c44"/></g>`;
@@ -452,7 +454,7 @@ function renderCourses(){
  TEES.forEach(([k,l,c])=>{const b=el('button');b.setAttribute('aria-pressed',k===tee);const d=el('span','dot');d.style.background=c;b.append(d,document.createTextNode(l));b.onclick=()=>{tee=k;renderCourses();};t.append(b);});
  const o=document.getElementById('overview');o.innerHTML='';
  Object.entries(COURSES).forEach(([id,c])=>{const d=el('div','cc');d.setAttribute('aria-current',id===cur);d.onclick=()=>{cur=id;renderCourses();};
-  const ill=el('div','illu');ill.innerHTML=illu(id);d.append(ill);
+  const ill=el('div','illu');const im=el('img');im.src=PHOTO[id];im.alt='Platz '+c.name;im.loading='lazy';ill.append(im);d.append(ill);
   d.append(el('div','k','9-Loch-Platz'),el('div','t',c.name),el('div','big num','Par '+sum(c.par)),el('div','meta num',f(sum(c[tee]))+' m · längstes Loch '+f(Math.max(...c[tee]))+' m'));
   const mix=el('div','mix');[[3,'--p3'],[4,'--p4'],[5,'--p5']].forEach(([pp,v])=>{const i=el('i');i.style.flex=c.par.filter(x=>x===pp).length;i.style.background=`var(${v})`;mix.append(i);});
   const ml=el('div','mixl');[3,4,5].forEach(pp=>ml.append(el('span','',c.par.filter(x=>x===pp).length+'× Par '+pp)));
