@@ -196,9 +196,9 @@ section{padding:88px 0 0}
 footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);color:var(--fg3);font-size:12px;line-height:1.7}
 
 /* Motion */
-.gal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:220px;gap:12px;margin-top:28px}
+.gal{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;grid-auto-rows:220px;gap:12px;margin-top:28px}
 .gal figure{margin:0;position:relative;border-radius:18px;overflow:hidden;background:var(--bg2);cursor:zoom-in}
-.gal figure:first-child{grid-row:span 2}
+.gal figure:first-child,.gal figure:nth-child(4){grid-row:span 2}
 .gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .gal figure:hover img{transform:scale(1.03)}
 .gal figcaption{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:12px;font-weight:600;padding:6px 11px;border-radius:999px}
@@ -212,7 +212,7 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 }
 
 @media (max-width:760px){
-  .gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding:2px 20px 6px;scrollbar-width:none}.gal::-webkit-scrollbar{display:none}.gal figure{flex:0 0 82%;height:300px;scroll-snap-align:center}.gal figure:first-child{grid-row:auto}
+  .gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding:2px 20px 6px;scrollbar-width:none}.gal::-webkit-scrollbar{display:none}.gal figure{flex:0 0 82%;height:300px;scroll-snap-align:center}.gal figure:first-child,.gal figure:nth-child(4){grid-row:auto}
   section{padding-top:64px}.grey{padding:64px 0;margin-top:64px}
   .clubfacts{grid-template-columns:1fr 1fr}.cf{padding:18px 12px 18px 0!important;border-left:none!important;border-bottom:1px solid var(--line)}.cf:nth-child(even){padding-left:14px!important;border-left:1px solid var(--line)!important}.cf:last-child{grid-column:span 2;border-bottom:none}
   .ribbon{height:56px;gap:3px}.hole{padding:6px 4px;border-radius:9px}.hole .hl{display:none}.hole .hn{font-size:11px}
@@ -552,7 +552,7 @@ let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCours
 
 
 /* ===== Galerie ===== */
-(()=>{const G=[['galerie-1.jpg','Abschlag Gelb'],['galerie-2.jpg','Bunker vor dem Grün'],['galerie-3.jpg','Fahne zwischen Palmen'],['galerie-4.jpg','Auf dem Grün'],['galerie-5.jpg','Golf Djerba Club']];
+(()=>{const G=[['galerie-1.jpg','Abschlag Gelb'],['galerie-2.jpg','Bunker vor dem Grün'],['galerie-3.jpg','Fahne zwischen Palmen'],['galerie-6.jpg','Das 19. Loch'],['galerie-4.jpg','Auf dem Grün'],['galerie-5.jpg','Golf Djerba Club']];
  const g=document.getElementById('gal'),lb=document.createElement('dialog');lb.id='lb';const li=el('img'),lp=el('p');lb.append(li,lp);document.body.append(lb);
  lb.addEventListener('click',()=>lb.close());
  G.forEach(([s,c])=>{const f=el('figure'),i=el('img');i.src=s;i.alt=c;i.loading='lazy';f.append(i,el('figcaption','',c));
