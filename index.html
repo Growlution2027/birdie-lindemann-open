@@ -314,8 +314,8 @@ const COURSES={
 /* Kombinationen: Reihenfolge und Lochvorgaben laut Scorecards; CR/Slope Gelb laut Spielvorgabentabelle (null = noch nicht vorliegend) */
 const COMBOS={
  PM:{a:'P',b:'M',name:'Palmiers / La Mer',hp:[10,18,4,14,12,2,6,16,8,13,1,5,3,7,15,11,9,17],cr:73,slope:130},
- MA:{a:'M',b:'A',name:'La Mer / Les Acacias',hp:[14,2,6,4,8,16,12,10,18,1,17,3,13,15,7,9,11,5],cr:null,slope:null},
- PA:{a:'P',b:'A',name:'Palmiers / Les Acacias',hp:[10,18,4,14,12,2,6,16,8,1,17,3,13,15,7,9,11,5],cr:null,slope:null}
+ MA:{a:'M',b:'A',name:'La Mer / Les Acacias',hp:[14,2,6,4,8,16,12,10,18,1,17,3,13,15,7,9,11,5],cr:71,slope:130,est:true},
+ PA:{a:'P',b:'A',name:'Palmiers / Les Acacias',hp:[10,18,4,14,12,2,6,16,8,1,17,3,13,15,7,9,11,5],cr:72,slope:130,est:true}
 };
 const ROUNDS=[
  {no:1,date:'2026-10-19',combo:'PM',s:[5,4,6,4,4,7,4,3,5,4,6,6,6,6,4,6,6,5],p:[2,2,2,2,2,2,2,2,1,1,2,2,1,3,2,2,2,1]},
@@ -388,12 +388,13 @@ const avg=(arr)=>arr.length?sum(arr)/arr.length:null;
   d.append(el('div','n','Runde '+r.no),el('div','d',fmtD(r.date)),el('div','c',r.combo?COMBOS[r.combo].name+' · Par '+sum(comboPar(r.combo)):'Kombination offen'));
   if(R){const s=el('div','s num');s.append(el('b','',R.stb!=null?String(R.stb):String(R.score)),el('span','',R.stb!=null?'Punkte':'Brutto'));d.append(s);
    const m=el('div','m num');
-   [['Brutto',R.score+' ('+sgn(R.score-R.par)+')'],['Putts',String(R.putts)],['Vorgabe',R.ch!=null?String(R.ch):'–'],['gesp. HCP',R.sd!=null?de(R.sd,1):'–']]
+   [['Brutto',R.score+' ('+sgn(R.score-R.par)+')'],['Putts',String(R.putts)],['Vorgabe',R.ch!=null?String(R.ch)+(COMBOS[r.combo].est?'*':''):'–'],['gesp. HCP',R.sd!=null?de(R.sd,1)+(COMBOS[r.combo].est?'*':''):'–']]
     .forEach(([k,v])=>{const x=el('span','',k+' ');x.append(el('b','',v));m.append(x);});
    d.append(m);}
   else d.append(el('div','open',isNext?'Als Nächstes':'Ausstehend'));
   if(isNext)d.append(el('div','tag','NÄCHSTE'));
-  rw.append(d);});})();
+  rw.append(d);});
+ if(played.some(r=>COMBOS[r.combo].est)){const q=el('p','u','* Spielvorgabe auf Annahme: Für diese Kombination gibt es keine Clubtabelle. Angesetzt sind Course Rating = Par und Slope 130 wie bei Palmier / Mer.');q.style.cssText='margin-top:14px;font-size:13px;color:var(--fg3)';rw.after(q);}})();
 
 /* ===== Verteilung ===== */
 (()=>{const split=document.getElementById('split');if(!n)return;
@@ -410,7 +411,7 @@ const avg=(arr)=>arr.length?sum(arr)/arr.length:null;
  played.slice().reverse().forEach(r=>{const R=r.res;const c=el('div','card');
   c.append(el('h3','','Runde '+r.no+' · '+COMBOS[r.combo].name),el('div','meta num',fmtD(r.date)+' · Abschlag '+PLAYER.tee));
   const ch=el('div','chips num');
-  [['Brutto',R.score+' ('+sgn(R.score-R.par)+')'],['Stableford',R.stb!=null?R.stb+' Punkte':'–'],['Putts',String(R.putts)],['Spielvorgabe',R.ch!=null?String(R.ch):'offen'],['Gespieltes HCP',R.sd!=null?de(R.sd,1):'–']]
+  [['Brutto',R.score+' ('+sgn(R.score-R.par)+')'],['Stableford',R.stb!=null?R.stb+' Punkte':'–'],['Putts',String(R.putts)],['Spielvorgabe',R.ch!=null?String(R.ch)+(COMBOS[r.combo].est?' (Annahme)':''):'offen'],['Gespieltes HCP',R.sd!=null?de(R.sd,1)+(COMBOS[r.combo].est?' (Annahme)':''):'–']]
    .forEach(([k,v])=>{const x=el('div','chip');x.append(el('span','',k),document.createTextNode(v));ch.append(x);});
   c.append(ch);
   [[0,9],[9,18]].forEach(([a,b])=>{const hs=R.holes.slice(a,b);const w=el('div','nine');const t=el('table','num');
@@ -490,7 +491,7 @@ function renderCourses(){
  const h=el('tr');['Kombination','Par','CR','Slope',...TEES.map(x=>x[1])].forEach(x=>h.append(el('th',(x==='CR'||x==='Slope')?'opt':'',x)));cb.append(h);
  Object.entries(COMBOS).forEach(([k,cmb])=>{const A=COURSES[cmb.a],B=COURSES[cmb.b];const tr=el('tr');const td=el('td');td.append(el('b','',cmb.name));
   ROUNDS.filter(r=>r.combo===k).forEach(r=>td.append(el('span','tag','R'+r.no)));tr.append(td);
-  tr.append(el('td','',String(sum(A.par)+sum(B.par))),el('td','opt',cmb.cr??'–'),el('td','opt',cmb.slope??'–'));
+  tr.append(el('td','',String(sum(A.par)+sum(B.par))),el('td','opt',cmb.cr!=null?cmb.cr+(cmb.est?'*':''):'–'),el('td','opt',cmb.slope!=null?cmb.slope+(cmb.est?'*':''):'–'));
   TEES.forEach(([t])=>{const x=el('td','',f(sum(A[t])+sum(B[t])));if(t===tee)x.style.fontWeight='700';tr.append(x);});cb.append(tr);});
 }
 /* ===== Club & Schleifen ===== */
@@ -528,8 +529,8 @@ let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCours
  if(r&&document.getElementById('m-ch')){const c=COMBOS[r.combo],R=r.res;
   document.getElementById('m-ch').textContent=`${c.name}, ${PLAYER.tee}: ${de(PLAYER.hcpi,1)} × ${c.slope} ÷ 113 + (${c.cr} − ${R.par}) = ${de(PLAYER.hcpi*c.slope/113+(c.cr-R.par),1)} → ${R.ch}.`;
   document.getElementById('m-sd').textContent=`Runde ${r.no}: (${R.ags} − ${c.cr}) × 113 ÷ ${c.slope} = ${de(R.sd,1)}.`;}
- const open=Object.values(COMBOS).filter(c=>c.cr==null).map(c=>c.name);
- document.getElementById('foot').textContent=`Stand ${UPDATED}. Längen, Par und Lochvorgaben von den Original-Scorecards des Djerba Golf Club, Spielvorgaben aus der Spielvorgabentabelle des Clubs (Palmier / Mer, Stand 12.02.2026)`+(open.length?`; für ${open.join(' und ')} liegt sie noch nicht vor`:'')+`. Charakter der Plätze: 1golf.eu, ROBINSON Djerba Bahiya.`;})();
+ const open=Object.values(COMBOS).filter(c=>c.est).map(c=>c.name);
+ document.getElementById('foot').textContent=`Stand ${UPDATED}. Längen, Par und Lochvorgaben von den Original-Scorecards des Djerba Golf Club, Spielvorgaben aus der Spielvorgabentabelle des Clubs (Palmier / Mer, Stand 12.02.2026)`+(open.length?`; für ${open.join(' und ')} gibt es keine Tabelle, dort gilt die Annahme Course Rating = Par, Slope 130`:'')+`. Charakter der Plätze: 1golf.eu, ROBINSON Djerba Bahiya.`;})();
 
 /* ===== Motion ===== */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.dist i').forEach(i=>i.style.width=i.dataset.w);io.unobserve(e.target);}}),{threshold:.12});
