@@ -7,10 +7,24 @@
 <meta name="description" content="Sechs Runden, 108 Löcher. Die Birdie Lindemann Open 2026 am Djerba Golf Club.">
 <meta property="og:title" content="Birdie Lindemann Open 2026">
 <meta property="og:description" content="6 Runden. 108 Löcher. Jeder Putt zählt.">
-<meta property="og:image" content="hero.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://growlution2027.github.io/birdie-lindemann-open/">
+<meta property="og:site_name" content="Birdie Lindemann Open">
+<meta property="og:locale" content="de_DE">
+<meta property="og:image" content="https://growlution2027.github.io/birdie-lindemann-open/hero.jpg">
+<meta property="og:image:width" content="1800">
+<meta property="og:image:height" content="972">
+<meta property="og:image:alt" content="Djerba Golf Club, Abschlag zwischen Palmen">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://growlution2027.github.io/birdie-lindemann-open/">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Birdie Open">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;Birdie Lindemann Open&quot;,&quot;short_name&quot;:&quot;Birdie Open&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;start_url&quot;:&quot;https://growlution2027.github.io/birdie-lindemann-open/&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;https://growlution2027.github.io/birdie-lindemann-open/icon-512.png&quot;,&quot;sizes&quot;:&quot;512x512&quot;,&quot;type&quot;:&quot;image/png&quot;}]}">
 <style>
 :root{
   --bg:#ffffff;--bg2:#f5f5f7;--card:#ffffff;--fg:#1d1d1f;--fg2:#6e6e73;--fg3:#86868b;--line:#d2d2d7;
@@ -206,6 +220,12 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 #lb::backdrop{background:rgba(0,0,0,.88)}
 #lb img{max-width:96vw;max-height:88vh;display:block;border-radius:14px}
 #lb p{color:#fff;text-align:center;font-size:13px;margin:10px 0 0}
+.trend{margin-top:12px}.trend h4{margin:0}.trend .sub{color:var(--fg3);font-size:13px;margin-top:4px}
+.charts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:20px}
+.chart .ct{font-size:13px;font-weight:600;color:var(--fg2)}.chart .cv{font-size:28px;font-weight:700;letter-spacing:-.02em;margin-top:2px}
+.chart svg{width:100%;height:auto;margin-top:10px;overflow:visible}
+.chart text{font-size:11px;fill:var(--fg3);font-family:inherit}.chart .lbl{fill:var(--fg);font-weight:600}
+.kpi-tile .v{font-size:clamp(24px,2.8vw,32px)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media (prefers-reduced-motion:no-preference){
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
   .reveal.in{opacity:1;transform:none}
@@ -222,7 +242,7 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
   .pwrap{display:block}.pfoto{min-height:0!important;height:auto;margin-bottom:12px}.pfoto img{position:relative!important;inset:auto;display:block;width:100%;height:auto!important;aspect-ratio:4/5;object-fit:cover}
   .stats{grid-template-columns:1fr 1fr}.stats .tile:first-child{grid-column:span 2}
   .rounds{grid-template-columns:1fr 1fr}
-  .split,.method{grid-template-columns:1fr}
+  .split,.method{grid-template-columns:1fr}.charts{grid-template-columns:1fr;gap:28px}.chart svg{max-height:120px}
   .grid3{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:-20px;padding:2px 20px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.grid3::-webkit-scrollbar{display:none}.grid3 .cc{flex:0 0 80%;scroll-snap-align:center;padding:18px 16px}.grid3 .cc .illu{margin:-18px -16px 14px}.grid3 .cc .big{font-size:32px;margin-top:10px}.swipe{display:block!important}
   .facts{grid-template-columns:1fr 1fr}
   .nine th{width:50px;font-size:11px;padding-left:2px}.nine td{font-size:13px;padding:7px 0}.nine .tot{width:32px}
@@ -294,7 +314,9 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
   <section class="reveal">
     <h2 class="sh">Auf dem Platz.</h2>
     <p class="ss">Ergebnisse und Putts über alle gespielten Löcher.</p>
+    <div class="stats" id="kpi"></div>
     <div class="split" id="split"></div>
+    <div class="panel trend" id="trend"></div>
   </section>
 
   <section id="galerie" class="reveal">
@@ -551,12 +573,43 @@ let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCours
  document.getElementById('foot').textContent=`Stand ${UPDATED}. Längen, Par und Lochvorgaben von den Original-Scorecards des Djerba Golf Club, Spielvorgaben aus der Spielvorgabentabelle des Clubs (Palmier / Mer, Stand 12.02.2026)`+(open.length?`; für ${open.join(' und ')} gibt es keine Tabelle, dort gilt die Annahme Course Rating = Par, Slope 130`:'')+`. Charakter der Plätze: 1golf.eu, ROBINSON Djerba Bahiya.`;})();
 
 
+
+/* ===== Statistik & Verlauf ===== */
+(()=>{if(!n)return;const k=document.getElementById('kpi');
+ const pt=pp=>{const h=allH.filter(x=>x.par===pp);return h.length?[sum(h.map(x=>x.s-x.par))/h.length,h.length]:null;};
+ const fmt=v=>(v>0?'+':v<0?'−':'')+de(Math.abs(v),2);
+ const by={};allH.forEach(h=>{const key=h.loop+' '+h.hole;(by[key]=by[key]||{key,par:h.par,d:[]}).d.push(h.s-h.par);});
+ const worst=Object.values(by).map(o=>({...o,a:sum(o.d)/o.d.length})).sort((a,b)=>b.a-a.a||b.d.length-a.d.length)[0];
+ const good=allH.filter(h=>h.s<=h.par);
+ const T=[];[3,4,5].forEach(pp=>{const r=pt(pp);T.push(['Par '+pp+' Ø',r?fmt(r[0]):'–',r?'zu Par · '+r[1]+' Löcher':''])});
+ T.push(['Teuerstes Loch',worst.key,fmt(worst.a)+' zu Par · Par '+worst.par+' · '+worst.d.length+'× gespielt']);
+ T.push(['Putts bei Par +',good.length?de(sum(good.map(h=>h.p))/good.length,2):'–','je Loch · '+good.length+' Löcher mit Par oder besser']);
+ T.forEach(([a,v,u])=>{const d=el('div','tile kpi-tile');d.append(el('div','k',a),el('div','v num',v),el('div','u',u));k.append(d);});
+ const tr=document.getElementById('trend');
+ tr.append(el('h4','','Verlauf'),el('div','sub','Je Runde, '+n+' von '+ROUNDS.length+' gespielt'+(played.some(r=>COMBOS[r.combo].est)?' · * Spielvorgabe auf Annahme':'')));
+ const ch=el('div','charts');tr.append(ch);
+ const NS='http://www.w3.org/2000/svg',mk=(t,a)=>{const e=document.createElementNS(NS,t);for(const x in a)e.setAttribute(x,a[x]);return e;};
+ [['Brutto',r=>r.res.score,'var(--fg)',false],['Stableford',r=>r.res.stb,'var(--accent)',true],['Putts',r=>r.res.putts,'var(--green)',false]].forEach(([lab,fn,col,star])=>{
+  const pts=ROUNDS.map((r,i)=>({i,v:r.res?fn(r):null,r})).filter(o=>o.v!=null);
+  const c=el('div','chart');const last=pts[pts.length-1];
+  c.append(el('div','ct',lab),el('div','cv num',last?String(last.v):'–'));
+  const W=300,H=110,px=14,py=22,vs=pts.map(o=>o.v),lo=Math.min(...vs)-3,hi=Math.max(...vs)+3;
+  const X=i=>px+i*(W-2*px)/(ROUNDS.length-1),Y=v=>py+(hi-v)/(hi-lo)*(H-2*py);
+  const s=mk('svg',{viewBox:`0 0 ${W} ${H+16}`,role:'img','aria-label':lab+' je Runde'});
+  s.append(mk('line',{x1:px,x2:W-px,y1:H-4,y2:H-4,stroke:'var(--line)','stroke-width':1}));
+  ROUNDS.forEach((r,i)=>{const t=mk('text',{x:X(i),y:H+12,'text-anchor':'middle'});t.textContent='R'+r.no;s.append(t);});
+  if(pts.length>1)s.append(mk('polyline',{points:pts.map(o=>X(o.i)+','+Y(o.v)).join(' '),fill:'none',stroke:col,'stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round'}));
+  pts.forEach(o=>{s.append(mk('circle',{cx:X(o.i),cy:Y(o.v),r:4.5,fill:'var(--bg2)',stroke:col,'stroke-width':2.5}));
+   const t=mk('text',{x:X(o.i),y:Y(o.v)-10,'text-anchor':'middle',class:'lbl'});t.textContent=o.v+(star&&COMBOS[o.r.combo].est?'*':'');s.append(t);});
+  c.append(s);ch.append(c);});
+})();
+
 /* ===== Galerie ===== */
-(()=>{const G=[['galerie-1.jpg','Abschlag Gelb'],['galerie-2.jpg','Bunker vor dem Grün'],['galerie-3.jpg','Fahne zwischen Palmen'],['galerie-6.jpg','Das 19. Loch'],['galerie-4.jpg','Auf dem Grün'],['galerie-5.jpg','Golf Djerba Club']];
+(()=>{const G=[['galerie-1','Abschlag Gelb'],['galerie-2','Bunker vor dem Grün'],['galerie-3','Fahne zwischen Palmen'],['galerie-6','Das 19. Loch'],['galerie-4','Auf dem Grün'],['galerie-5','Golf Djerba Club']];
  const g=document.getElementById('gal'),lb=document.createElement('dialog');lb.id='lb';const li=el('img'),lp=el('p');lb.append(li,lp);document.body.append(lb);
  lb.addEventListener('click',()=>lb.close());
- G.forEach(([s,c])=>{const f=el('figure'),i=el('img');i.src=s;i.alt=c;i.loading='lazy';f.append(i,el('figcaption','',c));
-  f.onclick=()=>{li.src=s;li.alt=c;lp.textContent=c;if(lb.showModal)lb.showModal();else window.open(s);};g.append(f);});})();
+ G.forEach(([s,c])=>{const f=el('figure'),i=el('img');i.src=s+'-s.webp';i.alt=c;i.loading='lazy';i.decoding='async';f.append(i,el('figcaption','',c));
+  f.onclick=()=>{li.src=s+'.webp';li.alt=c;lp.textContent=c;if(lb.showModal)lb.showModal();else window.open(s+'.webp');};g.append(f);});})();
 /* ===== Motion ===== */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.dist i').forEach(i=>i.style.width=i.dataset.w);io.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(s=>io.observe(s));
