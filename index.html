@@ -196,12 +196,23 @@ section{padding:88px 0 0}
 footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);color:var(--fg3);font-size:12px;line-height:1.7}
 
 /* Motion */
+.gal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:220px;gap:12px;margin-top:28px}
+.gal figure{margin:0;position:relative;border-radius:18px;overflow:hidden;background:var(--bg2);cursor:zoom-in}
+.gal figure:first-child{grid-row:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.gal figure:hover img{transform:scale(1.03)}
+.gal figcaption{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:12px;font-weight:600;padding:6px 11px;border-radius:999px}
+#lb{border:0;padding:0;background:transparent;max-width:96vw;max-height:92vh}
+#lb::backdrop{background:rgba(0,0,0,.88)}
+#lb img{max-width:96vw;max-height:88vh;display:block;border-radius:14px}
+#lb p{color:#fff;text-align:center;font-size:13px;margin:10px 0 0}
 @media (prefers-reduced-motion:no-preference){
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
   .reveal.in{opacity:1;transform:none}
 }
 
 @media (max-width:760px){
+  .gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding:2px 20px 6px;scrollbar-width:none}.gal::-webkit-scrollbar{display:none}.gal figure{flex:0 0 82%;height:300px;scroll-snap-align:center}.gal figure:first-child{grid-row:auto}
   section{padding-top:64px}.grey{padding:64px 0;margin-top:64px}
   .clubfacts{grid-template-columns:1fr 1fr}.cf{padding:18px 12px 18px 0!important;border-left:none!important;border-bottom:1px solid var(--line)}.cf:nth-child(even){padding-left:14px!important;border-left:1px solid var(--line)!important}.cf:last-child{grid-column:span 2;border-bottom:none}
   .ribbon{height:56px;gap:3px}.hole{padding:6px 4px;border-radius:9px}.hole .hl{display:none}.hole .hn{font-size:11px}
@@ -224,7 +235,7 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
 </style>
 </head>
 <body>
-<nav><div class="wrap"><b>Birdie Lindemann Open</b><a href="#club">Club</a><a href="#plaetze">Plätze</a><a href="#stand">Stand</a><a href="#runden">Runden</a><a href="#scorecards">Scorecards</a></div></nav>
+<nav><div class="wrap"><b>Birdie Lindemann Open</b><a href="#club">Club</a><a href="#plaetze">Plätze</a><a href="#stand">Stand</a><a href="#runden">Runden</a><a href="#scorecards">Scorecards</a><a href="#galerie">Galerie</a></div></nav>
 
 <header class="hero">
   <div class="hero-in">
@@ -284,6 +295,13 @@ footer{margin:88px 0 0;padding:22px 0 48px;border-top:1px solid var(--line);colo
     <h2 class="sh">Auf dem Platz.</h2>
     <p class="ss">Ergebnisse und Putts über alle gespielten Löcher.</p>
     <div class="split" id="split"></div>
+  </section>
+
+  <section id="galerie" class="reveal">
+    <h2 class="sh">Galerie.</h2>
+    <p class="ss">Eindrücke vom Djerba Golf Club.</p>
+    <div class="gal" id="gal"></div>
+    <p class="swipe">Wischen für weitere Bilder · Tippen vergrößert</p>
   </section>
 
   <section id="scorecards" class="reveal">
@@ -532,6 +550,13 @@ let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCours
  const open=Object.values(COMBOS).filter(c=>c.est).map(c=>c.name);
  document.getElementById('foot').textContent=`Stand ${UPDATED}. Längen, Par und Lochvorgaben von den Original-Scorecards des Djerba Golf Club, Spielvorgaben aus der Spielvorgabentabelle des Clubs (Palmier / Mer, Stand 12.02.2026)`+(open.length?`; für ${open.join(' und ')} gibt es keine Tabelle, dort gilt die Annahme Course Rating = Par, Slope 130`:'')+`. Charakter der Plätze: 1golf.eu, ROBINSON Djerba Bahiya.`;})();
 
+
+/* ===== Galerie ===== */
+(()=>{const G=[['galerie-1.jpg','Abschlag Gelb'],['galerie-2.jpg','Bunker vor dem Grün'],['galerie-3.jpg','Fahne zwischen Palmen'],['galerie-4.jpg','Auf dem Grün'],['galerie-5.jpg','Golf Djerba Club']];
+ const g=document.getElementById('gal'),lb=document.createElement('dialog');lb.id='lb';const li=el('img'),lp=el('p');lb.append(li,lp);document.body.append(lb);
+ lb.addEventListener('click',()=>lb.close());
+ G.forEach(([s,c])=>{const f=el('figure'),i=el('img');i.src=s;i.alt=c;i.loading='lazy';f.append(i,el('figcaption','',c));
+  f.onclick=()=>{li.src=s;li.alt=c;lp.textContent=c;if(lb.showModal)lb.showModal();else window.open(s);};g.append(f);});})();
 /* ===== Motion ===== */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.dist i').forEach(i=>i.style.width=i.dataset.w);io.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(s=>io.observe(s));
