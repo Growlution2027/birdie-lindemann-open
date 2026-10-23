@@ -360,12 +360,12 @@ const COMBOS={
 const ROUNDS=[
  {no:1,date:'2026-10-19',combo:'PM',s:[5,4,6,4,4,7,4,3,5,4,6,6,6,6,4,6,6,5],p:[2,2,2,2,2,2,2,2,1,1,2,2,1,3,2,2,2,1]},
  {no:2,date:'2026-10-21',combo:'PA',s:[5,3,5,5,6,7,5,4,7,5,4,6,4,5,4,6,4,5],p:[2,1,2,1,2,2,3,2,2,2,1,2,2,2,3,2,2,2]},
- {no:3,date:'2026-10-23',combo:null},
+ {no:3,date:'2026-10-23',combo:'MA',s:[5,4,5,6,4,3,7,5,4,6,6,6,4,5,4,5,5,5],p:[2,2,2,2,1,2,3,2,2,2,2,2,2,2,2,3,2,2]},
  {no:4,date:'2026-10-25',combo:null},
  {no:5,date:'2026-10-27',combo:null},
  {no:6,date:'2026-10-29',combo:null}
 ];
-const UPDATED='21.10.2026';
+const UPDATED='23.10.2026';
 
 /* ===== Rechnen ===== */
 const sum=a=>a.reduce((s,v)=>s+v,0);
@@ -582,7 +582,7 @@ let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(renderCours
  const worst=Object.values(by).map(o=>({...o,a:sum(o.d)/o.d.length})).sort((a,b)=>b.a-a.a||b.d.length-a.d.length)[0];
  const good=allH.filter(h=>h.s<=h.par);
  const T=[];[3,4,5].forEach(pp=>{const r=pt(pp);T.push(['Par '+pp+' Ø',r?fmt(r[0]):'–',r?'zu Par · '+r[1]+' Löcher':''])});
- T.push(['Teuerstes Loch',worst.key,fmt(worst.a)+' zu Par · Par '+worst.par+' · '+worst.d.length+'× gespielt']);
+ T.push(['Schwerstes Loch für dich',worst.key,'Ø '+fmt(worst.a)+' zu Par · Par '+worst.par+' · '+worst.d.length+'× gespielt']);
  T.push(['Putts bei Par +',good.length?de(sum(good.map(h=>h.p))/good.length,2):'–','je Loch · '+good.length+' Löcher mit Par oder besser']);
  T.forEach(([a,v,u])=>{const d=el('div','tile kpi-tile');d.append(el('div','k',a),el('div','v num',v),el('div','u',u));k.append(d);});
  const tr=document.getElementById('trend');
