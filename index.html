@@ -133,6 +133,7 @@ section{padding:88px 0 0}
 .dist .row b{text-align:right;font-weight:600}
 
 /* Scorecard */
+.card.extra{outline:1px dashed var(--line);outline-offset:-1px}
 .card{background:var(--bg2);border-radius:var(--r);padding:24px 18px;margin-top:20px}
 .card h3{margin:0 4px;font-size:24px;font-weight:700;letter-spacing:-.02em}
 .card .meta{margin:4px 4px 0;color:var(--fg2);font-size:15px}
@@ -362,11 +363,13 @@ const ROUNDS=[
  {no:1,date:'2026-10-19',combo:'PM',s:[5,4,6,4,4,7,4,3,5,4,6,6,6,6,4,6,6,5],p:[2,2,2,2,2,2,2,2,1,1,2,2,1,3,2,2,2,1]},
  {no:2,date:'2026-10-21',combo:'PA',s:[5,3,5,5,6,7,5,4,7,5,4,6,4,5,4,6,4,5],p:[2,1,2,1,2,2,3,2,2,2,1,2,2,2,3,2,2,2]},
  {no:3,date:'2026-10-23',combo:'MA',s:[5,4,5,6,4,3,7,5,4,6,6,6,4,5,4,5,5,5],p:[2,2,2,2,1,2,3,2,2,2,2,2,2,2,2,3,2,2]},
- {no:4,date:'2026-10-25',combo:null},
+ {no:4,date:'2026-10-25',combo:'PM',s:[4,5,6,4,4,6,5,4,6,4,5,5,6,5,4,5,5,3],p:[1,3,2,1,2,2,2,2,2,1,2,2,1,2,2,1,2,1]},
  {no:5,date:'2026-10-27',combo:null},
  {no:6,date:'2026-10-29',combo:null}
 ];
-const UPDATED='23.10.2026';
+/* Zusatzrunden: nicht Teil der 6 Turnierrunden, fließen nicht in Stand und Statistik ein */
+const EXTRAS=[{date:'2026-10-25',after:4,course:'A',s:[5,4,5,4,5,3,5,5,5],p:[2,2,2,3,2,1,2,2,2]}];
+const UPDATED='25.10.2026';
 
 /* ===== Rechnen ===== */
 const sum=a=>a.reduce((s,v)=>s+v,0);
@@ -449,13 +452,7 @@ const avg=(arr)=>arr.length?sum(arr)/arr.length:null;
 
 /* ===== Scorecards ===== */
 (()=>{const cards=document.getElementById('cards');
- played.slice().reverse().forEach(r=>{const R=r.res;const c=el('div','card');
-  c.append(el('h3','','Runde '+r.no+' · '+COMBOS[r.combo].name),el('div','meta num',fmtD(r.date)+' · Abschlag '+PLAYER.tee));
-  const ch=el('div','chips num');
-  [['Brutto',R.score+' ('+sgn(R.score-R.par)+')'],['Stableford',R.stb!=null?R.stb+' Punkte':'–'],['Putts',String(R.putts)],['Spielvorgabe',R.ch!=null?String(R.ch)+(COMBOS[r.combo].est?' (Annahme)':''):'offen'],['Gespieltes HCP',R.sd!=null?de(R.sd,1)+(COMBOS[r.combo].est?' (Annahme)':''):'–']]
-   .forEach(([k,v])=>{const x=el('div','chip');x.append(el('span','',k),document.createTextNode(v));ch.append(x);});
-  c.append(ch);
-  [[0,9],[9,18]].forEach(([a,b])=>{const hs=R.holes.slice(a,b);const w=el('div','nine');const t=el('table','num');
+ const nineTable=(c,hs,stb)=>{const w=el('div','nine');const t=el('table','num');
    t.append(el('caption','',hs[0].loop));
    const line=(lab,fn,tot,cls)=>{const tr=el('tr',cls||'');tr.append(el('th','',lab));hs.forEach(h=>{const td=el('td');fn(td,h);tr.append(td);});tr.append(el('td','tot',tot));t.append(tr);};
    line('Loch',(td,h)=>td.textContent=h.hole,'');
@@ -463,8 +460,27 @@ const avg=(arr)=>arr.length?sum(arr)/arr.length:null;
    line('Hp',(td,h)=>{td.textContent=h.hp;td.style.color='var(--fg3)';td.style.fontSize='12px';},'');
    line('Schläge',(td,h)=>{const d=h.s-h.par;td.append(el('span','sc '+(d<=-1?'birdie':d===0?'par':d===1?'bogey':'double'),String(h.s)));},String(sum(hs.map(h=>h.s))));
    line('Putts',(td,h)=>{td.textContent=h.p;if(h.p>=3)td.className='pt3';else if(h.p<=1)td.className='pt1';},String(sum(hs.map(h=>h.p))));
-   if(R.stb!=null)line('Punkte',(td,h)=>td.textContent=h.pts,String(sum(hs.map(h=>h.pts))),'pts');
-   w.append(t);c.append(w);});
+   if(stb)line('Punkte',(td,h)=>td.textContent=h.pts,String(sum(hs.map(h=>h.pts))),'pts');
+   w.append(t);c.append(w);};
+ const extraCard=x=>{const C=COURSES[x.course],hpAll=Object.values(COMBOS).find(k=>k.b===x.course||k.a===x.course);
+  const hp=hpAll.a===x.course?hpAll.hp.slice(0,9):hpAll.hp.slice(9);const ch9=Math.round((playingHcp('PM')||22)/2);
+  const rank=hp.map(v=>hp.filter(w=>w<v).length);
+  const hs=x.s.map((s,i)=>{const st=Math.floor(ch9/9)+(rank[i]<ch9%9?1:0);return {loop:C.short,hole:i+1,par:C.par[i],hp:hp[i],s,p:x.p[i],pts:Math.max(0,2+C.par[i]+st-s)};});
+  const c=el('div','card extra');const sc=sum(x.s),pr=sum(C.par);
+  c.append(el('h3','','Zusatzrunde · 9 Loch '+C.short),el('div','meta num',fmtD(x.date)+' · Abschlag '+PLAYER.tee+' · zählt nicht zum Turnierstand'));
+  const ch=el('div','chips num');
+  [['Brutto',sc+' ('+sgn(sc-pr)+')'],['Stableford',sum(hs.map(h=>h.pts))+' Punkte'],['Putts',String(sum(x.p))],['Vorgabe 9 Loch',ch9+' (Annahme)']]
+   .forEach(([k,v])=>{const e=el('div','chip');e.append(el('span','',k),document.createTextNode(v));ch.append(e);});
+  c.append(ch);nineTable(c,hs,true);
+  c.append(el('div','legend','Annahme: halbe Spielvorgabe von Palmiers / La Mer (22 ÷ 2 = 11), Schläge nach Lochvorgabe verteilt. Für 9 Loch Les Acacias gibt es keine Clubtabelle.'));
+  cards.append(c);};
+ played.slice().reverse().forEach(r=>{EXTRAS.filter(x=>x.after===r.no).forEach(extraCard);const R=r.res;const c=el('div','card');
+  c.append(el('h3','','Runde '+r.no+' · '+COMBOS[r.combo].name),el('div','meta num',fmtD(r.date)+' · Abschlag '+PLAYER.tee));
+  const ch=el('div','chips num');
+  [['Brutto',R.score+' ('+sgn(R.score-R.par)+')'],['Stableford',R.stb!=null?R.stb+' Punkte':'–'],['Putts',String(R.putts)],['Spielvorgabe',R.ch!=null?String(R.ch)+(COMBOS[r.combo].est?' (Annahme)':''):'offen'],['Gespieltes HCP',R.sd!=null?de(R.sd,1)+(COMBOS[r.combo].est?' (Annahme)':''):'–']]
+   .forEach(([k,v])=>{const x=el('div','chip');x.append(el('span','',k),document.createTextNode(v));ch.append(x);});
+  c.append(ch);
+  [[0,9],[9,18]].forEach(([a,b])=>nineTable(c,R.holes.slice(a,b),R.stb!=null));
   const lg=el('div','legend');
   [['birdie','3','Birdie'],['par','4','Par'],['bogey','5','Bogey'],['double','6','Doppelbogey +']].forEach(([k,v,l])=>{const s=el('span');s.append(el('span','sc '+k,v),document.createTextNode(l));lg.append(s);});
   const sp=el('span');const i=el('i');i.style.background='var(--accent)';sp.append(i,document.createTextNode('Stableford-Punkte'));lg.append(sp);
