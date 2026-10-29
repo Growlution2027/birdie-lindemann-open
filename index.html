@@ -365,11 +365,11 @@ const ROUNDS=[
  {no:3,date:'2026-10-23',combo:'MA',s:[5,4,5,6,4,3,7,5,4,6,6,6,4,5,4,5,5,5],p:[2,2,2,2,1,2,3,2,2,2,2,2,2,2,2,3,2,2]},
  {no:4,date:'2026-10-25',combo:'PM',s:[4,5,6,4,4,6,5,4,6,4,5,5,6,5,4,5,5,3],p:[1,3,2,1,2,2,2,2,2,1,2,2,1,2,2,1,2,1]},
  {no:5,date:'2026-10-27',combo:'PM',s:[5,3,5,5,5,7,4,5,5,5,6,6,7,5,4,7,4,3],p:[2,1,1,1,2,2,2,3,1,2,2,2,2,1,2,2,1,2]},
- {no:6,date:'2026-10-29',combo:null}
+ {no:6,date:'2026-10-29',combo:'PA',s:[4,3,5,4,5,6,5,5,6,5,4,7,3,6,4,6,5,5],p:[1,1,2,2,2,2,2,2,2,1,2,2,2,3,1,2,2,2]}
 ];
 /* Zusatzrunden: nicht Teil der 6 Turnierrunden, fließen nicht in Stand und Statistik ein */
 const EXTRAS=[{date:'2026-10-25',after:4,course:'A',s:[5,4,5,4,5,3,5,5,5],p:[2,2,2,3,2,1,2,2,2]}];
-const UPDATED='27.10.2026';
+const UPDATED='29.10.2026';
 
 /* ===== Rechnen ===== */
 const sum=a=>a.reduce((s,v)=>s+v,0);
@@ -411,7 +411,7 @@ const avg=(arr)=>arr.length?sum(arr)/arr.length:null;
 
 /* ===== Stand ===== */
 (()=>{
- document.getElementById('stand-s').textContent=n?`Nach ${n} von ${ROUNDS.length} Runden.`+(next?` Weiter geht es ${fmtD(next.date)}${next.combo?' auf '+COMBOS[next.combo].name:''}.`:' Turnier beendet.'):'Das Turnier startet am 19. Oktober.';
+ document.getElementById('stand-s').textContent=n?`Nach ${n} von ${ROUNDS.length} Runden.`+(next?` Weiter geht es ${fmtD(next.date)}${next.combo?' auf '+COMBOS[next.combo].name:''}.`:` Turnier beendet. Endstand: ${sum(played.map(r=>r.res.stb||0))} Stableford-Punkte und ${sum(played.map(r=>r.res.score))} Schläge auf 108 Löchern.`):'Das Turnier startet am 19. Oktober.';
  const stb=played.filter(r=>r.res.stb!=null),sds=played.filter(r=>r.res.sd!=null);
  const bestSd=sds.length?sds.reduce((a,r)=>r.res.sd<a.res.sd?r:a):null;
  const tiles=[
